@@ -18,7 +18,7 @@ class sapAdminPageSettingTextarea extends sapAdminPageSetting {
 	 */
 	public $size = 'small';
 
-	private $sanitize_callback = 'sanitize_text_field';
+	public $sanitize_callback = 'sanitize_text_field';
 	
 	/**
 	 * Escape the value to display it safely HTML textarea fields

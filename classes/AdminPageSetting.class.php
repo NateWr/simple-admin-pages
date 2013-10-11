@@ -24,8 +24,7 @@ abstract class sapAdminPageSetting {
 	 *
 	 * @since 1.0
 	 */
-	private $sanitize_callback = null; // sanitize the incoming data
-
+	public $sanitize_callback = null; // sanitize the incoming data
 
 	/**
 	 * Initialize the setting
@@ -53,6 +52,16 @@ abstract class sapAdminPageSetting {
 		return esc_attr( $val );
 	}
 	
+	/**
+	 * Wrapper for the sanitization callback function.
+	 *
+	 * This just reduces code duplication for child classes that need a custom
+	 * callback function.
+	 * @since 1.0
+	 */
+	public function sanitize_callback_wrapper( $value ) {
+		return call_user_func( $this->sanitize_callback, $value );
+	}
 
 	/**
 	 * Display this setting
@@ -78,22 +87,24 @@ abstract class sapAdminPageSetting {
 	}
 
 	/**
-	 * Register this setting
+	 * Add and register this setting
 	 * @since 1.0
+	 *
+	 * @todo If the sanitization callback is abstracted to a common function
+	 * 		in each class that then called the WP sanitization callback, it
+	 * 		would reduce duplicated code in child classes. Something simple like
+	 *		function sanitize_callback_wrapper($val) { return call_user_func($this->sanitize_callback, $val) {
 	 */
-	public function register_setting() {
-
-		/*
-		 * If no sanitization callback exists, don't register the setting. This
-		 * also prevents someone from accidentally trying to register a page
-		 * setting using this class instead of a class which extends this class.
-		 */
+	public function add_register_setting( $page_slug, $section_id ) {
+		
+		// If no sanitization callback exists, don't register the setting.
 		if ( !isset( $this->sanitize_callback ) || !trim( $this->sanitize_callback ) ) {
 			return;
 		}
 
-		register_setting( $this->slug, $option->id, $this->sanitize_callback );
+		add_settings_field( $this->id, $this->title, array( $this, 'display_setting' ), $page_slug, $section_id );
+		register_setting( $page_slug, $this->id, array( $this, 'sanitize_callback_wrapper' ) );
 
 	}
-
+	
 }

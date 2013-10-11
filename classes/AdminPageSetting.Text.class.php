@@ -9,15 +9,7 @@
 
 class sapAdminPageSettingText extends sapAdminPageSetting {
 
-	private $sanitize_callback = 'sanitize_text_field';
-	
-	/**
-	 * Escape the value to display it safely in input text fields
-	 * @since 1.0
-	 */
-	public function esc_value( $val ) {
-		return esc_attr( $val );
-	}
+	public $sanitize_callback = 'sanitize_text_field';
 
 	/**
 	 * Display this setting

@@ -61,4 +61,12 @@ class sapAdminPageSection {
 		endif;
 	}
 	
+	/**
+	 * Add the settings section to the page in WordPress
+	 * @since 1.0
+	 */
+	public function add_settings_section( $page_slug ) {
+		add_settings_section( $this->id, $this->title, array( $this, 'display_section' ), $page_slug );
+	}
+	
 }

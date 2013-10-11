@@ -11,4 +11,18 @@ textarea.small-text {
 	width: 25em;
 	height: 10em;
 }
-	
+
+/*
+ * Opening Hours
+ */
+.sap-opening-hours td {
+	padding-left: 0;
+	padding-right: 1em;
+	padding-top: 0;
+}
+input.sap-opening-hours-day {
+	width: 15em;
+}
+input.sap-opening-hours-hours {
+	width: 9em;
+}

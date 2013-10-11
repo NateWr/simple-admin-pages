@@ -11,6 +11,7 @@ require_once('AdminPageSection.class.php');
 require_once('AdminPageSetting.class.php');
 require_once('AdminPageSetting.Text.class.php');
 require_once('AdminPageSetting.Textarea.class.php');
+require_once('AdminPageSetting.OpeningHours.class.php');
 
 class sapAdminPage {
 
@@ -73,12 +74,11 @@ class sapAdminPage {
 
 		// Loop over each section
 		foreach ( $this->sections as $section ) {
-			add_settings_section( $section->id, $section->title, array( $section, 'display_section' ), $this->slug );
+			$section->add_settings_section( $this->slug );
 
 			// Loop over each setting
-			foreach ( $section->settings as $setting) {
-				add_settings_field( $setting->id, $setting->title, array( $setting, 'display_setting' ), $this->slug, $section->id );
-				register_setting( $this->slug, $setting->id, 'sanitize_text_field' );
+			foreach ( $section->settings as $setting ) {
+				$setting->add_register_setting( $this->slug, $section->id );
 			}
 		}
 	}

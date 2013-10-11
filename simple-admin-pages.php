@@ -17,6 +17,9 @@
  * @todo readme
  */
 
+// Set a textdomain for translation
+define('SAP_TEXTDOMAIN', 'sapdomain');
+
 // Make sure we have access to WordPress's plugin functions
 require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 
