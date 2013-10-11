@@ -12,6 +12,8 @@ require_once('AdminPageSetting.class.php');
 require_once('AdminPageSetting.Text.class.php');
 require_once('AdminPageSetting.Textarea.class.php');
 require_once('AdminPageSetting.OpeningHours.class.php');
+require_once('AdminPageSetting.SelectPost.class.php');
+require_once('AdminPageSetting.SelectTaxonomy.class.php');
 
 class sapAdminPage {
 
