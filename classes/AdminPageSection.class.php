@@ -55,7 +55,7 @@ class sapAdminPageSection {
 		if ( trim( $this->description ) != '' ) :
 		?>
 		
-			<p><?php echo $this->description; ?></p>
+			<p class="description"><?php echo $this->description; ?></p>
 
 		<?php
 		endif;

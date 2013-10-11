@@ -20,5 +20,6 @@
 // Make sure we have access to WordPress's plugin functions
 require_once(ABSPATH . '/wp-admin/includes/plugin.php');
 
+
 // Load the library's classes
 require_once('classes/AdminPage.class.php');

@@ -21,6 +21,8 @@ abstract class sapAdminPageSetting {
 	 * We set this to null in this class to prevent it from being used to
 	 * register a setting. $this->register_setting() will not be successful if
 	 * no $sanitize_callback value is found.
+	 *
+	 * @since 1.0
 	 */
 	private $sanitize_callback = null; // sanitize the incoming data
 
@@ -34,15 +36,46 @@ abstract class sapAdminPageSetting {
 		$this->id = esc_attr( $id );
 		$this->title = $title;
 		$this->description = $description;
-		$this->value = get_option ( $this->id );
+		$this->value = $this->esc_value( get_option ( $this->id ) );
 
 	}
+	
+	/**
+	 * Escape the value to display it in text fields and other input fields
+	 *
+	 * We use esc_attr() here so that the default is quite strict, but other
+	 * setting types should override this function with the appropriate escape
+	 * function. See: http://codex.wordpress.org/Data_Validation
+	 *
+	 * @since 1.0
+	 */
+	public function esc_value( $val ) {
+		return esc_attr( $val );
+	}
+	
 
 	/**
 	 * Display this setting
 	 * @since 1.0
 	 */
 	abstract public function display_setting();
+	
+	/**
+	 * Display a description for this setting
+	 * @since 1.0
+	 */
+	public function display_description() {
+
+		if ( trim( $this->description ) != '' ) {
+		
+		?>
+		
+			<p class="description"><?php echo $this->description; ?></p>
+
+		<?php
+		
+		}
+	}
 
 	/**
 	 * Register this setting

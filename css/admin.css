@@ -1,0 +1,14 @@
+/*
+ * CSS Stylesheet for Simple Admin Pages library
+ *
+ * This stylesheet formats the display components placed into the WordPress
+ * admin menu. It attempts to replicate WordPress's existing admin menu format.
+ *
+ * @package Simple Admin Pages
+*/
+
+textarea.small-text {
+	width: 25em;
+	height: 10em;
+}
+	
