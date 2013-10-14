@@ -34,7 +34,7 @@ class sapAdminPageSettingCheckbox extends sapAdminPageSetting {
 		$this->title = $title;
 		$this->description = $description;
 		$this->label = $label;
-		$this->value = $this->esc_value( get_option ( $this->id ) );
+		$this->value = $this->esc_value( get_option( $this->id ) );
 
 	}
 
