@@ -59,3 +59,4 @@ if ( !defined( 'SAP_TEXTDOMAIN' ) ) {
 		// no i dont think it would, because each library is going to load its
 		// own on every page load anyway.
 	}
+}
