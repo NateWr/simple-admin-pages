@@ -89,11 +89,6 @@ abstract class sapAdminPageSetting {
 	/**
 	 * Add and register this setting
 	 * @since 1.0
-	 *
-	 * @todo If the sanitization callback is abstracted to a common function
-	 * 		in each class that then called the WP sanitization callback, it
-	 * 		would reduce duplicated code in child classes. Something simple like
-	 *		function sanitize_callback_wrapper($val) { return call_user_func($this->sanitize_callback, $val) {
 	 */
 	public function add_register_setting( $page_slug, $section_id ) {
 		
