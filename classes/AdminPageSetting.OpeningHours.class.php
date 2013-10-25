@@ -12,17 +12,36 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
+	// Array of days of the week
+	public $weekdays = array(
+		'monday'		=> 'Monday',
+		'tuesday'		=> 'Tuesday',
+		'wednesday'		=> 'Wednesday',
+		'thursday'		=> 'Thursday',
+		'friday'		=> 'Friday',
+		'saturday'		=> 'Saturday',
+		'sunday'		=> 'Sunday'
+	);
+
 	/**
 	 * Initialize the setting
 	 * @since 1.0
 	 */
-	public function __construct( $id, $title, $description ) {
+	public function __construct( $id, $title, $description, $weekday_names = array() ) {
 
 		$this->id = esc_attr( $id );
 		$this->title = $title;
 		$this->description = $description;
 		$this->value = $this->esc_value( get_option( $this->id ) );
 
+		// Allow weekday names to be overwritten for easy translation
+		if ( is_array( $weekday_names ) && count( $weekday_names ) ) {
+			foreach ( $weekday_names as $id => $name ) {
+				if ( isset( $weekdays[$id] ) ) {
+					$this->weekdays[$id] = $name;
+				}
+			}
+		}
 	}
 
 	/**
@@ -46,18 +65,31 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 	/**
 	 * Display this setting
 	 * @since 1.0
+	 * @todo integrate time picker
 	 */
 	public function display_setting() {
 
 		$this->display_description();
 
 		for ($i = 0; $i < 7; $i++) {
+
 		?>
 
 			<table class="sap-opening-hours">
 				<tr>
 					<td>
-						<input name="<?php echo $this->id; ?>[<?php echo $i; ?>][day]" type="text" id="<?php echo $this->id . '-' . $i; ?>-day" value="<?php echo $this->value[$i]['day']; ?>" class="regular-text sap-opening-hours-day" />
+						<select name="<?php echo $this->id; ?>[<?php echo $i; ?>][day]" id="<?php echo $this->id . '-' . $i; ?>-day" class="sap-opening-hours-day">
+							<option value=""></option>
+
+							<?php foreach ( $this->weekdays as $id => $name ) : ?>
+
+							<option value="<?php echo $id; ?>"<?php if ( $this->value[$i]['day'] == $id ) : ?> selected<?php endif; ?>>
+								<?php echo $name; ?>
+							</option>
+
+							<?php endforeach; ?>
+
+						</select>
 					</td>
 					<td>
 						<input name="<?php echo $this->id; ?>[<?php echo $i; ?>][hours]" type="text" id="<?php echo $this->id . '-' . $i; ?>-hours" value="<?php echo $this->value[$i]['hours']; ?>" class="regular-text sap-opening-hours-hours" />
@@ -66,6 +98,7 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 			</table>
 
 		<?php
+
 		}
 
 	}
