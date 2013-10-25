@@ -6,8 +6,7 @@
  * @since 1.0
  * @package Simple Admin Pages
  *
- * @todo This should handle multiple options and properly escape the values
- * 		when saved and stored as an array.
+ * @todo This should be called "toggle" as it only handles one option.
  */
 
 class sapAdminPageSettingCheckbox extends sapAdminPageSetting {
