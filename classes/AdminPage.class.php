@@ -155,7 +155,8 @@ class sapAdminPage {
 	 * @since 1.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'esp-admin', $this->lib_url . 'css/admin.css' );
+		wp_enqueue_style( 'esp-admin-style', $this->lib_url . 'css/admin.css' );
+		wp_enqueue_script( 'esp-admin-script', $this->lib_url . 'js/admin.js', array( 'jquery' ), '1.0', true );
 	}
 
 }

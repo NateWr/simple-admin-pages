@@ -37,7 +37,7 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 		// Allow weekday names to be overwritten for easy translation
 		if ( is_array( $weekday_names ) && count( $weekday_names ) ) {
 			foreach ( $weekday_names as $id => $name ) {
-				if ( isset( $weekdays[$id] ) ) {
+				if ( isset( $this->weekdays[$id] ) ) {
 					$this->weekdays[$id] = $name;
 				}
 			}
@@ -63,6 +63,18 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 	}
 
 	/**
+	 * Get a day's display name
+	 * @since 1.0
+	 */
+	private function get_day_name( $day ) {
+		foreach ( $this->weekdays as $id => $name ) {
+			if ( $day == $id ) {
+				return $name;
+			}
+		}
+	}
+
+	/**
 	 * Display this setting
 	 * @since 1.0
 	 * @todo integrate time picker
@@ -78,12 +90,13 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 			<table class="sap-opening-hours">
 				<tr>
 					<td>
-						<select name="<?php echo $this->id; ?>[<?php echo $i; ?>][day]" id="<?php echo $this->id . '-' . $i; ?>-day" class="sap-opening-hours-day">
+						<input type="hidden" id="sap-opening-hours-day-<?php echo $i; ?>-name" name="<?php echo $this->id; ?>[<?php echo $i; ?>][day_name]" value="<?php echo esc_attr( $this->get_day_name( $this->value[$i]['day'] ) ); ?>">
+						<select name="<?php echo $this->id; ?>[<?php echo $i; ?>][day]" id="<?php echo $this->id . '-' . $i; ?>-day" class="sap-opening-hours-day" data-target="#sap-opening-hours-day-<?php echo $i; ?>-name">
 							<option value=""></option>
 
 							<?php foreach ( $this->weekdays as $id => $name ) : ?>
 
-							<option value="<?php echo $id; ?>"<?php if ( $this->value[$i]['day'] == $id ) : ?> selected<?php endif; ?>>
+							<option value="<?php echo $id; ?>" data-name="<?php echo esc_attr( $name ); ?>"<?php if ( $this->value[$i]['day'] == $id ) : ?> selected<?php endif; ?>>
 								<?php echo $name; ?>
 							</option>
 
