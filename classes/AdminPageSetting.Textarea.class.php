@@ -5,9 +5,11 @@
  *
  * @since 1.0
  * @package Simple Admin Pages
+ *
+ * @todo textareas should have an option to swap new lines for <br>s
  */
 
-class sapAdminPageSettingTextarea extends sapAdminPageSetting {
+class sapAdminPageSettingTextarea_1_0 extends sapAdminPageSetting_1_0 {
 
 	/*
 	 * Size of this textarea
@@ -16,7 +18,7 @@ class sapAdminPageSettingTextarea extends sapAdminPageSetting {
 	 * and setting this to 'large' will link into WordPress's existing textarea
 	 * style for full-width textareas.
 	 */
-	public $size = 'small';
+	private $size = 'small';
 
 	public $sanitize_callback = 'sanitize_text_field';
 	

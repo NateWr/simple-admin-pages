@@ -3,38 +3,33 @@
 /**
  * Register, display and save a selection option with a drop-down menu.
  *
+ * This setting accepts the following arguments in its constructor function.
+ *
+ * $args = array(
+ *		'id'			=> 'setting_id', 	// Unique id
+ *		'title'			=> 'My Setting', 	// Title or label for the setting
+ *		'description'	=> 'Description', 	// Help text description
+ *		'blank_option'	=> true, 			// Whether or not to show a blank option
+ *		'options'		=> array(			// An array of key/value pairs which
+ *			'option1'	=> 'Option 1',		//	define the options.
+ *			'option2'	=> 'Option 2',
+ *			...
+ *		);
+ * );
+ *
  * @since 1.0
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingSelect extends sapAdminPageSetting {
+class sapAdminPageSettingSelect_1_0 extends sapAdminPageSetting_1_0 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
 	// Whether or not to display a blank option
 	public $blank_option = true;
 
-	/**
-	 * An array of options for this select field, accepted as a key/value pair.
-	 * The key is the option value and the value is the text displayed to the
-	 * user.
-	 */
+	// An array of options for this select field, accepted as a key/value pair.
 	public $options = array();
-
-	/**
-	 * Initialize the setting
-	 * @since 1.0
-	 */
-	public function __construct( $id, $title, $description, $options, $blank_option = true ) {
-
-		$this->id = esc_attr( $id );
-		$this->title = $title;
-		$this->description = $description;
-		$this->blank_option = $blank_option;
-		$this->options = $options;
-		$this->value = $this->esc_value( get_option ( $this->id ) );
-
-	}
 
 	/**
 	 * Display this setting

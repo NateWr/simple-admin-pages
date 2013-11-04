@@ -2,13 +2,24 @@
 
 /**
  * Register, display and save a selection with a drop-down list of any taxonomy
+ *
+ * This setting accepts the following arguments in its constructor function.
+ *
+ * $args = array(
+ *		'id'			=> 'setting_id', 	// Unique id
+ *		'title'			=> 'My Setting', 	// Title or label for the setting
+ *		'description'	=> 'Description', 	// Help text description
+ *		'taxonomies'	=> array();			// Array of taxonomies to fetch (required)
+ *		'blank_option'	=> true, 			// Whether or not to show a blank option
+ *		'args'			=> array();			// Arguments to pass to WordPress's get_terms() function
+ * );
  * type
  *
  * @since 1.0
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingSelectTaxonomy extends sapAdminPageSetting {
+class sapAdminPageSettingSelectTaxonomy_1_0 extends sapAdminPageSetting_1_0 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 	
@@ -23,23 +34,6 @@ class sapAdminPageSettingSelectTaxonomy extends sapAdminPageSetting {
 	 * See: http://codex.wordpress.org/Function_Reference/get_terms
 	 */
 	public $args = array();
-
-	/**
-	 * Initialize the setting
-	 * @since 1.0
-	 */
-	public function __construct( $id, $title, $description, $taxonomies, $blank_option = true, $args = array() ) {
-
-		$this->id = esc_attr( $id );
-		$this->title = $title;
-		$this->description = $description;
-		$this->description = $description;
-		$this->taxonomies = $taxonomies;
-		$this->blank_option = $blank_option;
-		$this->args = $args;
-		$this->value = $this->esc_value( get_option ( $this->id ) );
-
-	}
 
 	/**
 	 * Display this setting

@@ -3,11 +3,21 @@
 /**
  * Register, display and save a selection with a drop-down list of any post type
  *
+ * This setting accepts the following arguments in its constructor function.
+ *
+ * $args = array(
+ *		'id'			=> 'setting_id', 	// Unique id
+ *		'title'			=> 'My Setting', 	// Title or label for the setting
+ *		'description'	=> 'Description', 	// Help text description
+ *		'blank_option'	=> true, 			// Whether or not to show a blank option
+ *		'args'			=> array();			// Arguments to pass to WordPress's get_post() function
+ * );
+ *
  * @since 1.0
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingSelectPost extends sapAdminPageSetting {
+class sapAdminPageSettingSelectPost_1_0 extends sapAdminPageSetting_1_0 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
@@ -19,21 +29,6 @@ class sapAdminPageSettingSelectPost extends sapAdminPageSetting {
 	 * See: http://codex.wordpress.org/Template_Tags/get_posts
 	 */
 	public $args = array();
-
-	/**
-	 * Initialize the setting
-	 * @since 1.0
-	 */
-	public function __construct( $id, $title, $description, $args = array(), $blank_option = true ) {
-
-		$this->id = esc_attr( $id );
-		$this->title = $title;
-		$this->description = $description;
-		$this->blank_option = $blank_option;
-		$this->args = $args;
-		$this->value = $this->esc_value( get_option ( $this->id ) );
-
-	}
 
 	/**
 	 * Display this setting

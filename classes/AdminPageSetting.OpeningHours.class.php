@@ -4,11 +4,28 @@
  * Register, display and save a series of fields to specify the opening hours
  * of a business/company.
  *
+ * This setting accepts the following arguments in its constructor function.
+ *
+ * $args = array(
+ *		'id'			=> 'setting_id', 	// Unique id
+ *		'title'			=> 'My Setting', 	// Title or label for the setting
+ *		'description'	=> 'Description', 	// Help text description
+ *		'weekday_names'	=> array(			// Optional array of custom 
+ *			'monday'		=> 'Monday',	//	weekday names. These can be
+ *			'tuesday'		=> 'Tuesday',   //	passed in any order to
+ *			'wednesday'		=> 'Wednesday',	//	set a new start of the week.
+ *			'thursday'		=> 'Thursday',
+ *			'friday'		=> 'Friday',
+ *			'saturday'		=> 'Saturday',
+ *			'sunday'		=> 'Sunday'
+ *		);
+ * );
+ *
  * @since 1.0
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
+class sapAdminPageSettingOpeningHours_1_0 extends sapAdminPageSetting_1_0 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
@@ -24,22 +41,33 @@ class sapAdminPageSettingOpeningHours extends sapAdminPageSetting {
 	);
 
 	/**
-	 * Initialize the setting
+	 * Parse the arguments passed in the construction and assign them to
+	 * internal variables.
 	 * @since 1.0
 	 */
-	public function __construct( $id, $title, $description, $weekday_names = array() ) {
+	private function parse_args( $args ) {
+		foreach ( $args as $key => $val ) {
+			switch ( $key ) {
 
-		$this->id = esc_attr( $id );
-		$this->title = $title;
-		$this->description = $description;
-		$this->value = $this->esc_value( get_option( $this->id ) );
+				case 'id' :
+					$this->{$key} = esc_attr( $val );
 
-		// Allow weekday names to be overwritten for easy translation
-		if ( is_array( $weekday_names ) && count( $weekday_names ) ) {
-			foreach ( $weekday_names as $id => $name ) {
-				if ( isset( $this->weekdays[$id] ) ) {
-					$this->weekdays[$id] = $name;
-				}
+				case 'weekdays' :
+				
+					$this->weekdays = $val;
+
+					// Allow weekday names to be overwritten for easy translation
+//					if ( is_array( $val ) && count( $val ) ) {
+//						foreach ( $val as $id => $name ) {
+//							if ( isset( $this->weekdays[$id] ) ) {
+//								$this->weekdays[$id] = $name;
+//							}
+//						}
+//					}
+
+				default :
+					$this->{$key} = $val;
+
 			}
 		}
 	}

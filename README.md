@@ -3,7 +3,7 @@ Simple Admin Pages for WordPress
 
 Simple Admin Pages is a very small utility library to easily add new admin 
 pages to the WordPress admin interface. It simply collects WordPress' useful 
-Settings API into reuseable classes and implements a set of practical controls.
+Settings API into reuseable classes and implements a set of simple controls.
 
 ## General Controls Supported
 

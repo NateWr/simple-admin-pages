@@ -1,15 +1,23 @@
 <?php
 
 /**
- * Register, display and save an option with a checkbox.
+ * Register, display and save an option with a single checkbox.
+ *
+ * This setting accepts the following arguments in its constructor function.
+ *
+ * $args = array(
+ *		'id'			=> 'setting_id', 	// Unique id
+ *		'title'			=> 'My Setting', 	// Title or label for the setting
+ *		'description'	=> 'Description', 	// Help text description
+ *		'label'			=> 'Label', 		// Checkbox label text
+ *		);
+ * );
  *
  * @since 1.0
  * @package Simple Admin Pages
- *
- * @todo This should be called "toggle" as it only handles one option.
  */
 
-class sapAdminPageSettingCheckbox extends sapAdminPageSetting {
+class sapAdminPageSettingToggle_1_0 extends sapAdminPageSetting_1_0 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
@@ -22,20 +30,6 @@ class sapAdminPageSettingCheckbox extends sapAdminPageSetting {
 	 * user.
 	 */
 	public $options = array();
-
-	/**
-	 * Initialize the setting
-	 * @since 1.0
-	 */
-	public function __construct( $id, $title, $description, $label ) {
-
-		$this->id = esc_attr( $id );
-		$this->title = $title;
-		$this->description = $description;
-		$this->label = $label;
-		$this->value = $this->esc_value( get_option( $this->id ) );
-
-	}
 
 	/**
 	 * Display this setting

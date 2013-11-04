@@ -7,27 +7,16 @@
  * @package Simple Admin Pages
  */
 
-require_once('AdminPageSection.class.php');
-require_once('AdminPageSetting.class.php');
-require_once('AdminPageSetting.Text.class.php');
-require_once('AdminPageSetting.Textarea.class.php');
-require_once('AdminPageSetting.Select.class.php');
-require_once('AdminPageSetting.Checkbox.class.php');
-require_once('AdminPageSetting.OpeningHours.class.php');
-require_once('AdminPageSetting.SelectPost.class.php');
-require_once('AdminPageSetting.SelectTaxonomy.class.php');
-
-class sapAdminPage {
+class sapAdminPage_1_0 {
 
 	public $title;
-	public $title_menu;
+	public $menu_title;
 	public $description; // optional description for this page
 	public $capability; // user permissions needed to edit this panel
-	public $slug; // id of this page
-	public $lib_url; // url to this library
+	public $id; // id of this page
 	public $icon = 'icon-options-general';
 	public $sections = array(); // array of sections to display on this page
-	
+
 	private $section_class_name = 'sapAdminPageSection';
 
 
@@ -35,16 +24,13 @@ class sapAdminPage {
 	 * Initialize the page
 	 * @since 1.0
 	 */
-	public function __construct( $title, $title_menu, $description, $capability, $slug, $lib_url ) {
+	public function __construct( $id, $title, $menu_title, $description, $capability ) {
 
+		$this->id = esc_attr( $id ); // id of this page
 		$this->title = $title;
-		$this->title_menu = $title_menu;
+		$this->menu_title = $menu_title;
 		$this->description = $description;
 		$this->capability = $capability;
-		$this->slug = esc_attr( $slug ); // id of this page
-		$this->lib_url = esc_url( $lib_url ); // id of this page
-		
-		add_action( 'admin_print_styles', array( $this, 'enqueue_scripts' ) );
 
 	}
 
@@ -55,7 +41,7 @@ class sapAdminPage {
 	 * @since 1.0
 	 */
 	public function add_admin_menu() {
-		add_options_page( $this->title, $this->title_menu, $this->capability, $this->slug, array( $this, 'display_admin_menu' ) );
+		add_options_page( $this->title, $this->menu_title, $this->capability, $this->id, array( $this, 'display_admin_menu' ) );
 	}
 
 	/**
@@ -63,11 +49,12 @@ class sapAdminPage {
 	 * @since 1.0
 	 */
 	public function add_section( $section ) {
-		if ( !$section || !get_class( $section ) == $this->section_class_name ) {
+		if ( !$section ) {
 			return;
 		}
 
-		array_push( $this->sections, $section );
+		$this->sections[ $section->id ] = $section;
+
 	}
 
 	/**
@@ -78,11 +65,11 @@ class sapAdminPage {
 
 		// Loop over each section
 		foreach ( $this->sections as $section ) {
-			$section->add_settings_section( $this->slug );
+			$section->add_settings_section( $this->id );
 
 			// Loop over each setting
 			foreach ( $section->settings as $setting ) {
-				$setting->add_register_setting( $this->slug, $section->id );
+				$setting->add_register_setting( $this->id, $section->id );
 			}
 		}
 	}
@@ -90,8 +77,6 @@ class sapAdminPage {
 
 	/**
 	 * Output the settings passed to this page
-	 * @todo the values of the fields should probably be fetched here
-	 * @todo maybe here is where the fields should be registered as well?
 	 * @since 1.0
 	 */
 	public function display_admin_menu() {
@@ -106,8 +91,8 @@ class sapAdminPage {
 				<?php $this->display_page_title(); ?>
 
 				<form method="post" action="options.php">
-					<?php settings_fields( $this->slug ); ?>
-					<?php do_settings_sections( $this->slug ); ?>
+					<?php settings_fields( $this->id ); ?>
+					<?php do_settings_sections( $this->id ); ?>
 					<?php submit_button(); ?>
 				 </form>
 			</div>
@@ -148,15 +133,6 @@ class sapAdminPage {
 		?>
 			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  /></p>
 		<?php
-	}
-
-	/**
-	 * Enqueue the CSS stylesheet
-	 * @since 1.0
-	 */
-	public function enqueue_scripts() {
-		wp_enqueue_style( 'esp-admin-style', $this->lib_url . 'css/admin.css' );
-		wp_enqueue_script( 'esp-admin-script', $this->lib_url . 'js/admin.js', array( 'jquery' ), '1.0', true );
 	}
 
 }

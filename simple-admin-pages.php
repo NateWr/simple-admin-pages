@@ -12,51 +12,41 @@
  *
  * @since 1.0
  * @package Simple Admin Pages
- *
- * @todo license
+ * @license GNU GPL 2 or later
  * @todo readme
  */
 
-// Only load the library if it hasn't already been loaded. This will prevent#
-// clashes if multiple plugins using the same library.
-if ( !defined( 'SAP_TEXTDOMAIN' ) ) {
+/**
+ * Initialize the appropriate version of the libary.
+ *
+ * This function should remain backwards compatible at all times, so that the
+ * initialization function from version 1.0 will still be able to initialize
+ * the library appropriately for version 2.0. This way, if two plugins exist
+ * with different versions, the plugin creator will still be able to initialize
+ * their library.
+ *
+ * @since 1.0
+ */
+if ( !function_exists( 'sap_initialize_library' ) ) {
 
-	// Set a textdomain for translation
-	define( 'SAP_TEXTDOMAIN', 'sapdomain' );
+	function sap_initialize_library( $args = array() ) {
 	
-	// Register the version of the library. This is not the public version
-	// number (ie - 1.0), but an internal integer we can compare easily to
-	// determine if an out-of-date version of the library is being used.
-	define( 'SAP_VERSION', 1); // @version
+		// Exit early if no version was provided
+		if ( !isset( $args['version'] ) ) {
+			return null;
+		}
 
-	// Make sure we have access to WordPress's plugin functions
-	require_once(ABSPATH . '/wp-admin/includes/plugin.php');
+		// Load the library
+		require_once('classes/Library.class.php');
 
-	// Load the library's classes
-	require_once('classes/AdminPage.class.php');
+		// Set the textdomain for translation
+		if ( !defined( 'SAP_TEXTDOMAIN' ) ) {
+			define( 'SAP_TEXTDOMAIN', 'sapdomain' );
+		}
 
-} else {
+		$lib_class_name = 'sapLibrary_' . str_replace( '.', '_', $args['version'] );
 
-	// Compare the versions to see if they need to be bumped.
-	if ( SAP_VERSION < 1 ) { // @version
-		// @todo I should display a notice that informs the user that an older
-		// version of this library is being used.
-		
-		// @todo Maybe there is a better way. Maybe an abstract class like
-		// sapLibrary which each plugin uses to declare the version they're
-		// built against. Then the classes will only be declared if their
-		// version matches the sapLibrary version. Something like:
-		// $lib = new sapLibrary( '1.0' );
-		// $lib->setup(); // loads necessary class files
-		// 
-		// then in the class definitions:
-		//
-		// if ($lib->version == '1.0') {
-		// 	class sapAdminPage { }
-		// }
-		// 
-		// maybe this would mean the proper version of the classes were loaded?
-		// no i dont think it would, because each library is going to load its
-		// own on every page load anyway.
+		return new $lib_class_name( $args );
 	}
+
 }

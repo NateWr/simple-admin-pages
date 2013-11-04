@@ -7,7 +7,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSection {
+class sapAdminPageSection_1_0 {
 
 	// Page defaults
 	public $id; // unique id for this section
@@ -15,19 +15,47 @@ class sapAdminPageSection {
 	public $description; // optional description of the section
 	public $settings = array(); // Array of settings to display in this option set
 	
-	private $setting_class_name = 'sapAdminPageSetting';
-
+	// Array to store errors
+	public $errors = array();
 
 	/**
 	 * Initialize the section
 	 * @since 1.0
 	 */
-	public function __construct( $id, $title, $description ) {
+	public function __construct( $args ) {
 
-		$this->id = esc_attr( $id );
-		$this->title = $title;
-		$this->description = $description;
+		// Parse the values passed
+		$this->parse_args( $args );
 
+		// Set an error if there is no id for this section
+		if ( !isset( $this->id ) ) {
+			$this->set_error(
+				array( 
+					'type'		=> 'missing_data',
+					'data'		=> 'id'
+				)
+			);
+		}
+
+	}
+
+	/**
+	 * Parse the arguments passed in the construction and assign them to
+	 * internal variables.
+	 * @since 1.0
+	 */
+	private function parse_args( $args ) {
+		foreach ( $args as $key => $val ) {
+			switch ( $key ) {
+
+				case 'id' :
+					$this->{$key} = esc_attr( $val );
+				
+				default :
+					$this->{$key} = $val;
+					
+			}
+		}
 	}
 	
 	/**
@@ -35,11 +63,11 @@ class sapAdminPageSection {
 	 * @since 1.0
 	 */
 	public function add_setting( $setting ) {
-		if ( !$setting || !is_subclass_of( $setting, $this->setting_class_name ) ) {
+		if ( !$setting ) {
 			return;
 		}
 		
-		array_push( $this->settings, $setting );
+		$this->settings[ $setting->id ] = $setting;
 	}
 
 	/**
@@ -67,6 +95,21 @@ class sapAdminPageSection {
 	 */
 	public function add_settings_section( $page_slug ) {
 		add_settings_section( $this->id, $this->title, array( $this, 'display_section' ), $page_slug );
+	}
+	
+	/**
+	 * Set an error
+	 * @since 1.0
+	 */
+	public function set_error( $error ) {
+		$this->errors[] = array_merge(
+			$error,
+			array(
+				'class'		=> get_class( $this ),
+				'id'		=> $this->id,
+				'backtrace'	=> debug_backtrace()
+			)
+		);
 	}
 	
 }
