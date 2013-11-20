@@ -13,8 +13,6 @@
  *
  * @since 1.0
  * @package Simple Admin Pages
- *
- * @todo add set_error() method
  */
 
 abstract class sapAdminPageSetting_1_0 {
