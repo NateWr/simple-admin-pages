@@ -77,8 +77,10 @@ Simple Admin Pages is released under the GNU GPL 2 or later.
 
 ## Requirements
 
-@todo WordPress version?
+Simple Admin Pages has been tested with WordPress versions 3.5 and above, but it
+will probably work with much earlier versions.
 
 ## Changelog
-- 1.0 - @todo date
+
+- 1.0 - 2013-11-20
 	- Initial release
