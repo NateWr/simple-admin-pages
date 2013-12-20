@@ -7,7 +7,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPage_1_0 {
+class sapAdminPage_1_1 {
 
 	public $title;
 	public $menu_title;
@@ -16,22 +16,41 @@ class sapAdminPage_1_0 {
 	public $id; // id of this page
 	public $icon = 'icon-options-general';
 	public $sections = array(); // array of sections to display on this page
+	public $show_button = true; // whether or not to show the Save Changes button
 
 	private $section_class_name = 'sapAdminPageSection';
+	
+	public $setup_function = 'add_options_page'; // WP function to register the page
 
 
 	/**
 	 * Initialize the page
 	 * @since 1.0
 	 */
-	public function __construct( $id, $title, $menu_title, $description, $capability ) {
+	public function __construct( $args ) {
 
-		$this->id = esc_attr( $id ); // id of this page
-		$this->title = $title;
-		$this->menu_title = $menu_title;
-		$this->description = $description;
-		$this->capability = $capability;
+		// Parse the values passed
+		$this->parse_args( $args );
 
+	}
+
+	/**
+	 * Parse the arguments passed in the construction and assign them to
+	 * internal variables.
+	 * @since 1.1
+	 */
+	private function parse_args( $args ) {
+		foreach ( $args as $key => $val ) {
+			switch ( $key ) {
+
+				case 'id' :
+					$this->{$key} = esc_attr( $val );
+				
+				default :
+					$this->{$key} = $val;
+					
+			}
+		}
 	}
 
 	/**
@@ -41,7 +60,7 @@ class sapAdminPage_1_0 {
 	 * @since 1.0
 	 */
 	public function add_admin_menu() {
-		add_options_page( $this->title, $this->menu_title, $this->capability, $this->id, array( $this, 'display_admin_menu' ) );
+		call_user_func( $this->setup_function, $this->title, $this->menu_title, $this->capability, $this->id, array( $this, 'display_admin_menu' ) );
 	}
 
 	/**
@@ -93,7 +112,7 @@ class sapAdminPage_1_0 {
 				<form method="post" action="options.php">
 					<?php settings_fields( $this->id ); ?>
 					<?php do_settings_sections( $this->id ); ?>
-					<?php submit_button(); ?>
+					<?php if ( $this->show_button ) { submit_button(); } ?>
 				 </form>
 			</div>
 

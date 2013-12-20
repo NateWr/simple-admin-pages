@@ -9,12 +9,12 @@
  */
 
 
-if ( !class_exists( 'sapLibrary_1_0' ) ) {
+if ( !class_exists( 'sapLibrary_1_1' ) ) {
 
-class sapLibrary_1_0 {
+class sapLibrary_1_1 {
 
 	// Version of the library
-	private $version = '1.0';
+	private $version = '1.1';
 
 	// A full URL to the library which is used to correctly link scripts and
 	// stylesheets.
@@ -149,6 +149,10 @@ class sapLibrary_1_0 {
 				require_once('AdminPageSetting.SelectTaxonomy.class.php');
 				return $this->get_versioned_classname( 'sapAdminPageSettingSelectTaxonomy' );
 
+			case 'html' :
+				require_once('AdminPageSetting.HTML.class.php');
+				return $this->get_versioned_classname( 'sapAdminPageSettingHTML' );
+
 			case 'opening-hours' :
 				require_once('AdminPageSetting.OpeningHours.class.php');
 				return $this->get_versioned_classname( 'sapAdminPageSettingOpeningHours' );
@@ -171,7 +175,7 @@ class sapLibrary_1_0 {
 				} else {
 					return false;
 				}
-			
+
 
 				// Check that we've loaded the appropriate class
 				if ( !$this->versioned_class_exists( $type['class'] ) ) {
@@ -188,22 +192,20 @@ class sapLibrary_1_0 {
 	 * Initialize a page
 	 * @since 1.0
 	 *
-	 * @todo If a $menu_location other than options is passed, this should
-	 * initialize a child class of AdminPage, such as AdminPageAppearance.
-	 *
 	 * @todo perform some checks on args to ensure a valid page can be constructed
 	 */
-	public function add_page( $menu_location = 'options', $args = array() ) {
+	public function add_page( $menu_location, $args = array() ) {
 
+		// default should be 'options'
 		$class = $this->get_versioned_classname( 'sapAdminPage' );
+
+		if ( $menu_location == 'themes' ) {
+			$this->load_class( 'sapAdminPageThemes', 'AdminPage.Themes.class.php' );
+			$class = $this->get_versioned_classname( 'sapAdminPageThemes' );
+		}
+
 		if ( class_exists( $class ) ) {
-			$this->pages[ $args['id'] ] = new $class(
-				$args['id'],
-				$args['title'],
-				$args['menu_title'],
-				$args['description'],
-				$args['capability']
-			);
+			$this->pages[ $args['id'] ] = new $class( $args );
 		}
 
 	}
@@ -246,7 +248,7 @@ class sapLibrary_1_0 {
 	 * @since 1.0
 	 */
 	public function add_admin_menus() {
-	
+
 		// If the library is run in debug mode, check for any errors in content,
 		// print any errors found, and don't add the menu if there are errors
 		if ( $this->debug_mode ) {
@@ -268,7 +270,7 @@ class sapLibrary_1_0 {
 				return;
 			}
 		}
-		
+
 		// Add the action hooks
 		foreach ( $this->pages as $id => $page ) {
 			add_action( 'admin_menu', array( $page, 'add_admin_menu' ) );

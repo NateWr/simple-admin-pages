@@ -24,7 +24,7 @@ Settings API into reuseable classes and implements a set of simple controls.
 	// Instantiate the Simple Admin Library
 	$sap = sap_initialize_library(
 		array(
-			'version'		=> '1.0', // Version of the library
+			'version'		=> '1.1', // Version of the library
 			'lib_url'		=> PLUGIN_URL . '/lib/simple-admin-pages/', // URL path to sap library
 		)
 	);
@@ -78,9 +78,12 @@ Simple Admin Pages is released under the GNU GPL 2 or later.
 ## Requirements
 
 Simple Admin Pages has been tested with WordPress versions 3.5 and above, but it
-will probably work with much earlier versions.
+will probably work with earlier versions.
 
 ## Changelog
+
+- 1.1 - unreleased
+	- Support themes pages
 
 - 1.0 - 2013-11-20
 	- Initial release

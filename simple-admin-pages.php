@@ -13,7 +13,6 @@
  * @since 1.0
  * @package Simple Admin Pages
  * @license GNU GPL 2 or later
- * @todo readme
  */
 
 /**
@@ -37,7 +36,9 @@ if ( !function_exists( 'sap_initialize_library' ) ) {
 		}
 
 		// Load the library
-		require_once('classes/Library.class.php');
+		$lib_url = isset( $args['lib_url'] ) ? $args['lib_url'] : '';
+		$lib_url .= 'classes/Library.class.php';
+		require_once( $lib_url );
 
 		// Set the textdomain for translation
 		if ( !defined( 'SAP_TEXTDOMAIN' ) ) {

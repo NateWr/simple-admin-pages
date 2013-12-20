@@ -19,7 +19,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingSelectTaxonomy_1_0 extends sapAdminPageSetting_1_0 {
+class sapAdminPageSettingSelectTaxonomy_1_1 extends sapAdminPageSetting_1_1 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 	
