@@ -28,7 +28,7 @@ Settings API into reuseable classes and implements a set of simple controls.
 
 ```
 	// Instantiate the Simple Admin Library
-	require_once( 'path/to/simple-admin-pages/classes/Library.class.php' );
+	require_once( 'path/to/simple-admin-pages/simple-admin-pages.php' );
 	$sap = sap_initialize_library(
 		array(
 			'version'		=> '1.1', // Version of the library
