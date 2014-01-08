@@ -5,6 +5,11 @@ Simple Admin Pages is a very small utility library to easily add new admin
 pages to the WordPress admin interface. It simply collects WordPress' useful
 Settings API into reuseable classes and implements a set of simple controls.
 
+## Settings Pages Supported
+
+- Settings sub-page
+- Themes sub-page
+
 ## General Controls Supported
 
 - Text field
@@ -13,6 +18,7 @@ Settings API into reuseable classes and implements a set of simple controls.
 - Select dropdown with custom options
 - Select dropdown of any post type
 - Select dropdown of any taxonomy type
+- HTML Content (for instructions, links or other inert text)
 
 ## Controls Supported for Special Use Cases
 
@@ -22,6 +28,7 @@ Settings API into reuseable classes and implements a set of simple controls.
 
 ```
 	// Instantiate the Simple Admin Library
+	require_once( 'path/to/simple-admin-pages/classes/Library.class.php' );
 	$sap = sap_initialize_library(
 		array(
 			'version'		=> '1.1', // Version of the library
@@ -77,8 +84,7 @@ Simple Admin Pages is released under the GNU GPL 2 or later.
 
 ## Requirements
 
-Simple Admin Pages has been tested with WordPress versions 3.5 and above, but it
-will probably work with earlier versions.
+Simple Admin Pages has been tested with WordPress versions 3.5 and above.
 
 ## Changelog
 
@@ -87,3 +93,9 @@ will probably work with earlier versions.
 
 - 1.0 - 2013-11-20
 	- Initial release
+
+## Roadmap
+
+- Support custom top-level admin pages
+- Support all default WordPress top-level admin pages
+- More custom data types
