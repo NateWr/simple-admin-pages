@@ -53,7 +53,8 @@ Settings API into reuseable classes and implements a set of simple controls.
 		'basic-settings',	// Page to add this section to
 		array(								// Array of key/value pairs matching the AdminPageSection class constructor variables
 			'id'			=> 'basic-details',
-			'title'			=> __( 'Basic Details', TEXTDOMAIN )
+			'title'			=> __( 'Basic Details', TEXTDOMAIN ),
+			'description'	=> __( 'This section includes some basic details for you to configure.', TEXTDOMAIN )
 		)
 	);
 
