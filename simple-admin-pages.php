@@ -36,9 +36,7 @@ if ( !function_exists( 'sap_initialize_library' ) ) {
 		}
 
 		// Load the library
-		$lib_url = isset( $args['lib_url'] ) ? $args['lib_url'] : '';
-		$lib_url .= 'classes/Library.class.php';
-		require_once( $lib_url );
+		require_once( 'classes/Library.class.php' );
 
 		// Set the textdomain for translation
 		if ( !defined( 'SAP_TEXTDOMAIN' ) ) {
