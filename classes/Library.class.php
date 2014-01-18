@@ -48,7 +48,7 @@ class sapLibrary_1_1 {
 		// If no URL path to the library is passed, we won't be able to add the
 		// CSS and Javascript to the admin panel
 		if ( !isset( $args['lib_url'] ) ) {
-			$this->addError(
+			$this->set_error(
 				array(
 					'id' 		=> 'no-lib-url',
 					'desc'		=> 'No URL path to the library provided when the libary was created.',
@@ -285,6 +285,21 @@ class sapLibrary_1_1 {
 	public function enqueue_scripts() {
 		wp_enqueue_style( 'esp-admin-style', $this->lib_url . 'css/admin.css' );
 		wp_enqueue_script( 'esp-admin-script', $this->lib_url . 'js/admin.js', array( 'jquery' ), '1.0', true );
+	}
+	
+	/**
+	 * Set an error
+	 * @since 1.0
+	 */
+	public function set_error( $error ) {
+		$this->errors[] = array_merge(
+			$error,
+			array(
+				'class'		=> get_class( $this ),
+				'id'		=> $this->id,
+				'backtrace'	=> debug_backtrace()
+			)
+		);
 	}
 
 }
