@@ -41,8 +41,8 @@ Settings API into reuseable classes and implements a set of simple controls.
 		'options', 				// Admin menu which this page should be added to
 		array(					// Array of key/value pairs matching the AdminPage class constructor variables
 			'id'			=> 'basic-settings',
-			'title'			=> __( 'Page Title', TEXTDOMAIN ),
-			'menu_title'	=> __( 'menu Title', TEXTDOMAIN ),
+			'title'			=> __( 'Page Title', SAP_TEXTDOMAIN ),
+			'menu_title'	=> __( 'menu Title', SAP_TEXTDOMAIN ),
 			'description'	=> '',
 			'capability'	=> 'manage_options' // User permissions access level
 		)
@@ -53,8 +53,8 @@ Settings API into reuseable classes and implements a set of simple controls.
 		'basic-settings',	// Page to add this section to
 		array(								// Array of key/value pairs matching the AdminPageSection class constructor variables
 			'id'			=> 'basic-details',
-			'title'			=> __( 'Basic Details', TEXTDOMAIN ),
-			'description'	=> __( 'This section includes some basic details for you to configure.', TEXTDOMAIN )
+			'title'			=> __( 'Basic Details', SAP_TEXTDOMAIN ),
+			'description'	=> __( 'This section includes some basic details for you to configure.', SAP_TEXTDOMAIN )
 		)
 	);
 
@@ -65,12 +65,12 @@ Settings API into reuseable classes and implements a set of simple controls.
 		'select',							// Type of setting
 		array(
 			'id'			=> 'select-field',
-			'title'			=> __( 'Select Field', TEXTDOMAIN ),
-			'description'	=> __( 'A demonstration of the select field type.', TEXTDOMAIN ),
+			'title'			=> __( 'Select Field', SAP_TEXTDOMAIN ),
+			'description'	=> __( 'A demonstration of the select field type.', SAP_TEXTDOMAIN ),
 			'options'		=> array(
-				'one' => __( 'Option 1', TEXTDOMAIN ),
-				'two' => __( 'Option 2', TEXTDOMAIN ),
-				'three' => __( 'Option 3', TEXTDOMAIN )
+				'one' => __( 'Option 1', SAP_TEXTDOMAIN ),
+				'two' => __( 'Option 2', SAP_TEXTDOMAIN ),
+				'three' => __( 'Option 3', SAP_TEXTDOMAIN )
 			)
 		)
 	);
