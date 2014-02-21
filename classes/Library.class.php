@@ -202,6 +202,9 @@ class sapLibrary_1_1 {
 		if ( $menu_location == 'themes' ) {
 			$this->load_class( 'sapAdminPageThemes', 'AdminPage.Themes.class.php' );
 			$class = $this->get_versioned_classname( 'sapAdminPageThemes' );
+		} elseif ( $menu_location == 'submenu' ) {
+			$this->load_class( 'sapAdminPageSubmenu', 'AdminPage.Submenu.class.php' );
+			$class = $this->get_versioned_classname( 'sapAdminPageSubmenu' );
 		}
 
 		if ( class_exists( $class ) ) {
