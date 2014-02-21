@@ -9,6 +9,7 @@ Settings API into reuseable classes and implements a set of simple controls.
 
 - Settings sub-page
 - Themes sub-page
+- Submenu pages for custom menu items
 
 ## General Controls Supported
 
@@ -91,6 +92,7 @@ Simple Admin Pages has been tested with WordPress versions 3.5 and above.
 
 - 1.1 - unreleased
 	- Support themes pages
+	- Support submenu pages for custom menu items
 
 - 1.0 - 2013-11-20
 	- Initial release
