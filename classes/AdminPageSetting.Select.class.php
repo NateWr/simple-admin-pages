@@ -21,7 +21,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingSelect_1_1 extends sapAdminPageSetting_1_1 {
+class sapAdminPageSettingSelect_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
@@ -39,7 +39,7 @@ class sapAdminPageSettingSelect_1_1 extends sapAdminPageSetting_1_1 {
 
 		?>
 
-			<select name="<?php echo $this->id; ?>" id="<?php echo $this->id; ?>">
+			<select name="<?php echo $this->get_input_name( $this->id, $this->page ); ?>" id="<?php echo $this->id; ?>">
 
 				<?php if ( $this->blank_option === true ) : ?>
 					<option></option>

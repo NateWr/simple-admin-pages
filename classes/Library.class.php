@@ -1,5 +1,5 @@
 <?php
-
+if ( !class_exists( 'sapLibrary_2_0_a_1' ) ) {
 /**
  * This library class loads and provides access to the correct version of the
  * Simple Admin Pages library.
@@ -7,14 +7,10 @@
  * @since 1.0
  * @package Simple Admin Pages
  */
-
-
-if ( !class_exists( 'sapLibrary_1_1' ) ) {
-
-class sapLibrary_1_1 {
+class sapLibrary_2_0_a_1 {
 
 	// Version of the library
-	private $version = '1.1';
+	private $version = '2.0.a.1';
 
 	// A full URL to the library which is used to correctly link scripts and
 	// stylesheets.
@@ -221,6 +217,12 @@ class sapLibrary_1_1 {
 	 */
 	public function add_section( $page, $args = array() ) {
 
+		if ( !isset( $this->pages[ $page ] ) ) {
+			return false;
+		} else {
+			$args['page'] = $page;
+		}
+
 		$class = $this->get_versioned_classname( 'sapAdminPageSection' );
 		if ( class_exists( $class ) ) {
 			$this->pages[ $page ]->add_section( new $class( $args ) );
@@ -238,6 +240,12 @@ class sapLibrary_1_1 {
 	 * @since 1.0
 	 */
 	public function add_setting( $page, $section, $type, $args = array() ) {
+
+		if ( !isset( $this->pages[ $page ] ) ) {
+			return false;
+		} else {
+			$args['page'] = $page;
+		}
 
 		$class = $this->get_setting_classname( $type );
 		if ( ( $class && class_exists( $class ) ) && is_subclass_of( $class, $this->get_versioned_classname( 'sapAdminPageSetting' ) ) ) {
@@ -289,7 +297,7 @@ class sapLibrary_1_1 {
 		wp_enqueue_style( 'esp-admin-style', $this->lib_url . 'css/admin.css' );
 		wp_enqueue_script( 'esp-admin-script', $this->lib_url . 'js/admin.js', array( 'jquery' ), '1.0', true );
 	}
-	
+
 	/**
 	 * Set an error
 	 * @since 1.0
@@ -306,5 +314,4 @@ class sapLibrary_1_1 {
 	}
 
 }
-
-} // End check to not declare class twice
+} // endif;

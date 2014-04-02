@@ -8,13 +8,11 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSubmenu_1_1 extends sapAdminPage_1_1 {
+class sapAdminPageSubmenu_2_0_a_1 extends sapAdminPage_2_0_a_1 {
 	
 	public $setup_function = 'add_submenu_page'; // WP function to register the page
 	
 	public $parent_menu = null; // Which menu to attach this submenu page to
-
-	// http://localhost/wp/wp-admin/edit.php?post_type=grfwp-review
 
 	/**
 	 * Add the page to the appropriate menu slot.

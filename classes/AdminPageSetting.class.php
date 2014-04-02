@@ -15,27 +15,26 @@
  * @package Simple Admin Pages
  */
 
-abstract class sapAdminPageSetting_1_1 {
+abstract class sapAdminPageSetting_2_0_a_1 {
 
 	// Page defaults
 	public $id; // used in form fields and database to track and store setting
 	public $title; // setting label
 	public $description; // optional description of the setting
 	public $value; // value of the setting, if a value exists
-	
+
 	// Array to store errors
 	public $errors = array();
 
 	/*
 	 * Function to use when sanitizing the data
 	 *
-	 * We set this to null in this class to prevent it from being used to
-	 * register a setting. $this->register_setting() will not be successful if
-	 * no $sanitize_callback value is found.
+	 * We set this to a strict sanitization function as a default, but a
+	 * setting should override this in an extended class when needed.
 	 *
 	 * @since 1.0
 	 */
-	public $sanitize_callback = null; // sanitize the incoming data
+	public $sanitize_callback = 'sanitize_text_field';
 
 	/**
 	 * Initialize the setting
@@ -49,9 +48,10 @@ abstract class sapAdminPageSetting_1_1 {
 
 		// Parse the values passed
 		$this->parse_args( $args );
-		
+
 		// Get any existing value
-		$this->value = $this->esc_value( get_option( $this->id ) );
+		$option_group_value = get_option( $this->page );
+		$this->value = isset( $option_group_value[ $this->id ] ) ? $this->esc_value( $option_group_value[ $this->id ] ) : '';
 
 		// Set an error if the object is missing necessary data
 		if ( $this->missing_data() ) {
@@ -70,10 +70,10 @@ abstract class sapAdminPageSetting_1_1 {
 
 				case 'id' :
 					$this->{$key} = esc_attr( $val );
-				
+
 				default :
 					$this->{$key} = $val;
-					
+
 			}
 		}
 	}
@@ -83,13 +83,13 @@ abstract class sapAdminPageSetting_1_1 {
 	 * @since 1.0
 	 */
 	private function missing_data(  ) {
-	
+
 		$error_type = 'missing_data';
-		
+
 		// Required fields
 		if ( empty( $this->id ) ) {
 			$this->set_error(
-				array( 
+				array(
 					'type'		=> $error_type,
 					'data'		=> 'id'
 				)
@@ -141,7 +141,7 @@ abstract class sapAdminPageSetting_1_1 {
 	 */
 	public function display_description() {
 
-		if ( trim( $this->description ) != '' ) {
+		if ( !empty( $this->description ) ) {
 
 		?>
 
@@ -153,21 +153,48 @@ abstract class sapAdminPageSetting_1_1 {
 	}
 
 	/**
+	 * Generate an option input field name, using the grouped schema:
+	 * "page[option_name]"
+	 * @since 1.2
+	 */
+	public function get_input_name( $option_name, $page ) {
+		return esc_attr( $page ) . '[' . esc_attr( $option_name ) . ']';
+	}
+
+	/**
 	 * Add and register this setting
+	 *
 	 * @since 1.0
 	 */
-	public function add_register_setting( $page_slug, $section_id ) {
+	public function add_settings_field( $page_slug, $section_id ) {
 
 		// If no sanitization callback exists, don't register the setting.
-		if ( !isset( $this->sanitize_callback ) || !trim( $this->sanitize_callback ) ) {
+		if ( !$this->has_sanitize_callback() ) {
 			return;
 		}
 
-		add_settings_field( $this->id, $this->title, array( $this, 'display_setting' ), $page_slug, $section_id );
-		register_setting( $page_slug, $this->id, array( $this, 'sanitize_callback_wrapper' ) );
+		add_settings_field(
+			$this->id,
+			$this->title,
+			array( $this, 'display_setting' ),
+			$page_slug, // @todo tab: this should be the tab if needed
+			$section_id
+		);
 
 	}
-	
+
+	/**
+	 * Check if this field has a sanitization callback set
+	 * @since 1.2
+	 */
+	public function has_sanitize_callback() {
+		if ( isset( $this->sanitize_callback ) && trim( $this->sanitize_callback ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Set an error
 	 * @since 1.0

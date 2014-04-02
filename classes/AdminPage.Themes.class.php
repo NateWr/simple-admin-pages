@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Register, display and save an settings page in the WordPress admin menu.
+ * Register, display and save a settings page in the WordPress admin Appearance
+ * menu.
  *
  * @since 1.0
  * @package Simple Admin Pages
  */
 
-class sapAdminPageThemes_1_1 extends sapAdminPage_1_1 {
+class sapAdminPageThemes_2_0_a_1 extends sapAdminPage_2_0_a_1 {
 	
 	public $setup_function = 'add_theme_page'; // WP function to register the page
 

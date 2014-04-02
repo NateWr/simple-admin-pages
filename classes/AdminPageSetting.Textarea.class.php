@@ -9,7 +9,7 @@
  * @todo textareas should have an option to swap new lines for <br>s
  */
 
-class sapAdminPageSettingTextarea_1_1 extends sapAdminPageSetting_1_1 {
+class sapAdminPageSettingTextarea_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 
 	/*
 	 * Size of this textarea
@@ -45,7 +45,7 @@ class sapAdminPageSettingTextarea_1_1 extends sapAdminPageSetting_1_1 {
 	public function display_setting() {
 		?>
 
-		<textarea name="<?php echo $this->id; ?>" id="<?php echo $this->id; ?>" class="<?php echo $this->size; ?>-text"><?php echo $this->value; ?></textarea>
+		<textarea name="<?php echo $this->get_input_name( $this->id, $this->page ); ?>" id="<?php echo $this->get_input_name( $this->id, $this->page ); ?>" class="<?php echo $this->size; ?>-text"><?php echo $this->value; ?></textarea>
 
 		<?php
 		

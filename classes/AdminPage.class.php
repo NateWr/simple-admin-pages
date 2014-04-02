@@ -1,25 +1,22 @@
 <?php
 
 /**
- * Register, display and save an settings page in the WordPress admin menu.
+ * Register, display and save a settings page in the WordPress admin menu.
  *
  * @since 1.0
  * @package Simple Admin Pages
  */
 
-class sapAdminPage_1_1 {
+class sapAdminPage_2_0_a_1 {
 
 	public $title;
 	public $menu_title;
 	public $description; // optional description for this page
 	public $capability; // user permissions needed to edit this panel
 	public $id; // id of this page
-	public $icon = 'icon-options-general';
 	public $sections = array(); // array of sections to display on this page
 	public $show_button = true; // whether or not to show the Save Changes button
 
-	private $section_class_name = 'sapAdminPageSection';
-	
 	public $setup_function = 'add_options_page'; // WP function to register the page
 
 
@@ -45,10 +42,10 @@ class sapAdminPage_1_1 {
 
 				case 'id' :
 					$this->{$key} = esc_attr( $val );
-				
+
 				default :
 					$this->{$key} = $val;
-					
+
 			}
 		}
 	}
@@ -68,6 +65,7 @@ class sapAdminPage_1_1 {
 	 * @since 1.0
 	 */
 	public function add_section( $section ) {
+
 		if ( !$section ) {
 			return;
 		}
@@ -82,17 +80,36 @@ class sapAdminPage_1_1 {
 	 */
 	public function register_admin_menu() {
 
-		// Loop over each section
 		foreach ( $this->sections as $section ) {
-			$section->add_settings_section( $this->id );
+			$section->add_settings_section( $this->id ); // @todo tab: settings should use their tab slug if needed. can i put this into the section class?
 
-			// Loop over each setting
 			foreach ( $section->settings as $setting ) {
-				$setting->add_register_setting( $this->id, $section->id );
+				$setting->add_settings_field( $this->id, $section->id );
 			}
 		}
+
+		register_setting( $this->id, $this->id, array( $this, 'sanitize_callback' ) );
 	}
 
+	/**
+	 * Loop through the settings and sanitize the data
+	 * @since 2.0
+	 */
+	public function sanitize_callback( $value ) {
+
+		foreach ( $this->sections as $section ) {
+			foreach ( $section->settings as $setting ) {
+				if ( isset( $value[$this->id] ) ) {
+					$value[$this->id] = $setting->sanitize_callback_wrapper( $value[$this->id] );
+				} else {
+					unset( $value[$this->id] );
+				}
+			}
+		}
+		
+		return $value;
+
+	}
 
 	/**
 	 * Output the settings passed to this page
@@ -125,32 +142,11 @@ class sapAdminPage_1_1 {
 	 */
 	public function display_page_title() {
 
-		if ( !$this->title ) {
+		if ( empty( $this->title ) ) {
 			return;
 		}
 		?>
-			<div id="<?php echo $this->icon; ?>" class="icon32"><br /></div>
 			<h2><?php echo $this->title; ?></h2>
-		<?php
-	}
-
-	/**
-	 * Loop over the sections and call the display function for each
-	 * @since 1.0
-	 */
-	public function display_sections() {
-		foreach ( $this->sections as $setting ) {
-			$section->display_section();
-		}
-	}
-
-	/**
-	 * Display the submit button
-	 * @since 1.0
-	 */
-	public function display_submit_button() {
-		?>
-			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  /></p>
 		<?php
 	}
 

@@ -10,7 +10,7 @@
  *		'id'			=> 'setting_id', 	// Unique id
  *		'title'			=> 'My Setting', 	// Title or label for the setting
  *		'description'	=> 'Description', 	// Help text description
- *		'weekday_names'	=> array(			// Optional array of custom 
+ *		'weekday_names'	=> array(			// Optional array of custom
  *			'monday'		=> 'Monday',	//	weekday names. These can be
  *			'tuesday'		=> 'Tuesday',   //	passed in any order to
  *			'wednesday'		=> 'Wednesday',	//	set a new start of the week.
@@ -25,7 +25,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingOpeningHours_1_1 extends sapAdminPageSetting_1_1 {
+class sapAdminPageSettingOpeningHours_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
@@ -53,17 +53,8 @@ class sapAdminPageSettingOpeningHours_1_1 extends sapAdminPageSetting_1_1 {
 					$this->{$key} = esc_attr( $val );
 
 				case 'weekdays' :
-				
-					$this->weekdays = $val;
 
-					// Allow weekday names to be overwritten for easy translation
-//					if ( is_array( $val ) && count( $val ) ) {
-//						foreach ( $val as $id => $name ) {
-//							if ( isset( $this->weekdays[$id] ) ) {
-//								$this->weekdays[$id] = $name;
-//							}
-//						}
-//					}
+					$this->weekdays = $val;
 
 				default :
 					$this->{$key} = $val;
@@ -73,21 +64,21 @@ class sapAdminPageSettingOpeningHours_1_1 extends sapAdminPageSetting_1_1 {
 	}
 
 	/**
-	 * Escape the value to display it in text fields
+	 * Escape the value to display it in text fields and other input fields
+	 *
 	 * @since 1.0
 	 */
-	public function esc_value( $values ) {
+	public function esc_value( $val ) {
+	
+		$value = array();
 
 		// Loop over the values and sanitize them
 		for ( $i = 0; $i < 7; $i++ ) {
-			if ( isset( $values[ $i ] ) && is_array( $values[ $i ] ) ) {
-				$values[$i]['day'] = esc_attr($values[$i]['day']);
-				$values[$i]['hours'] = esc_attr($values[$i]['hours']);
-			}
+			$value[$i]['day'] = isset( $val[$i] ) && isset( $val[$i]['day'] ) ? esc_attr( $val[$i]['day'] ) : '';
+			$value[$i]['hours'] = isset( $val[$i] ) && isset( $val[$i]['hours'] ) ? esc_attr( $val[$i]['hours'] ) : '';
 		}
-
-		return $values;
-
+		
+		return $value;
 	}
 
 	/**
@@ -100,6 +91,8 @@ class sapAdminPageSettingOpeningHours_1_1 extends sapAdminPageSetting_1_1 {
 				return $name;
 			}
 		}
+
+		return '';
 	}
 
 	/**
@@ -118,8 +111,8 @@ class sapAdminPageSettingOpeningHours_1_1 extends sapAdminPageSetting_1_1 {
 			<table class="sap-opening-hours">
 				<tr>
 					<td>
-						<input type="hidden" id="sap-opening-hours-day-<?php echo $i; ?>-name" name="<?php echo $this->id; ?>[<?php echo $i; ?>][day_name]" value="<?php echo esc_attr( $this->get_day_name( $this->value[$i]['day'] ) ); ?>">
-						<select name="<?php echo $this->id; ?>[<?php echo $i; ?>][day]" id="<?php echo $this->id . '-' . $i; ?>-day" class="sap-opening-hours-day" data-target="#sap-opening-hours-day-<?php echo $i; ?>-name">
+						<input type="hidden" id="sap-opening-hours-day-<?php echo $i; ?>-name" name="<?php echo $this->get_input_name(  $this->id, $this->page  ); ?>[<?php echo $i; ?>][day_name]" value="<?php echo esc_attr( $this->get_day_name( $this->value[$i]['day'] ) ); ?>">
+						<select name="<?php echo $this->get_input_name( $this->id, $this->page ); ?>[<?php echo $i; ?>][day]" id="<?php echo $this->id . '-' . $i; ?>-day" class="sap-opening-hours-day" data-target="#sap-opening-hours-day-<?php echo $i; ?>-name">
 							<option value=""></option>
 
 							<?php foreach ( $this->weekdays as $id => $name ) : ?>
@@ -133,7 +126,7 @@ class sapAdminPageSettingOpeningHours_1_1 extends sapAdminPageSetting_1_1 {
 						</select>
 					</td>
 					<td>
-						<input name="<?php echo $this->id; ?>[<?php echo $i; ?>][hours]" type="text" id="<?php echo $this->id . '-' . $i; ?>-hours" value="<?php echo $this->value[$i]['hours']; ?>" class="regular-text sap-opening-hours-hours" />
+						<input name="<?php echo $this->get_input_name( $this->id, $this->page ); ?>[<?php echo $i; ?>][hours]" type="text" id="<?php echo $this->id . '-' . $i; ?>-hours" value="<?php echo $this->value[$i]['hours']; ?>" class="regular-text sap-opening-hours-hours" />
 					</td>
 				</tr>
 			</table>

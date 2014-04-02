@@ -19,9 +19,9 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingSelectTaxonomy_1_1 extends sapAdminPageSetting_1_1 {
+class sapAdminPageSettingSelectTaxonomy_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 
-	public $sanitize_callback = 'sanitize_text_field';
+	public $sanitize_callback = 'intval';
 	
 	// Whether or not to display a blank option
 	public $blank_option = true;
@@ -45,7 +45,7 @@ class sapAdminPageSettingSelectTaxonomy_1_1 extends sapAdminPageSetting_1_1 {
 		
 		?>
 
-			<select name="<?php echo $this->id; ?>" id="<?php echo $this->id; ?>">
+			<select name="<?php echo $this->get_input_name( $this->id, $this->page ); ?>" id="<?php echo $this->get_input_name( $this->id, $this->page ); ?>">
 			
 				<?php if ( $this->blank_option === true ) : ?>
 					<option></option>

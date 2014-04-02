@@ -90,7 +90,10 @@ Simple Admin Pages has been tested with WordPress versions 3.5 and above.
 
 ## Changelog
 
-- 1.1 - unreleased
+- 2.0.a.1 - 2014-04-03
+	- Save all data on a page as one row in wp_options
+
+- 1.1 - never released
 	- Support themes pages
 	- Support submenu pages for custom menu items
 
@@ -99,6 +102,6 @@ Simple Admin Pages has been tested with WordPress versions 3.5 and above.
 
 ## Roadmap
 
+- Support tabs on pages
 - Support custom top-level admin pages
-- Support all default WordPress top-level admin pages
 - More custom data types
