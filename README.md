@@ -27,12 +27,14 @@ Settings API into reuseable classes and implements a set of simple controls.
 
 ## Usage
 
+Here's a simple example of how you can use this library to create an admin page.
+
 ```
 	// Instantiate the Simple Admin Library
 	require_once( 'path/to/simple-admin-pages/simple-admin-pages.php' );
 	$sap = sap_initialize_library(
 		array(
-			'version'		=> '1.1', // Version of the library
+			'version'		=> '2.0.a.1', // Version of the library
 			'lib_url'		=> PLUGIN_URL . '/lib/simple-admin-pages/', // URL path to sap library
 		)
 	);
@@ -51,8 +53,8 @@ Settings API into reuseable classes and implements a set of simple controls.
 
 	// Create a basic details section
 	$sap->add_section(
-		'basic-settings',	// Page to add this section to
-		array(								// Array of key/value pairs matching the AdminPageSection class constructor variables
+		'basic-settings',		// Page to add this section to
+		array(					// Array of key/value pairs matching the AdminPageSection class constructor variables
 			'id'			=> 'basic-details',
 			'title'			=> __( 'Basic Details', SAP_TEXTDOMAIN ),
 			'description'	=> __( 'This section includes some basic details for you to configure.', SAP_TEXTDOMAIN )
@@ -61,24 +63,29 @@ Settings API into reuseable classes and implements a set of simple controls.
 
 	// Create the options fields
 	$sap->add_setting(
-		'basic-settings',	// Page to add this setting to
-		'basic-details',				// Section to add this setting to
-		'select',							// Type of setting
+		'basic-settings',		// Page to add this setting to
+		'basic-details',		// Section to add this setting to
+		'select',				// Type of setting (see sapLibrary::get_setting_classname()
 		array(
 			'id'			=> 'select-field',
 			'title'			=> __( 'Select Field', SAP_TEXTDOMAIN ),
 			'description'	=> __( 'A demonstration of the select field type.', SAP_TEXTDOMAIN ),
 			'options'		=> array(
-				'one' => __( 'Option 1', SAP_TEXTDOMAIN ),
-				'two' => __( 'Option 2', SAP_TEXTDOMAIN ),
+				'one' 	=> __( 'Option 1', SAP_TEXTDOMAIN ),
+				'two' 	=> __( 'Option 2', SAP_TEXTDOMAIN ),
 				'three' => __( 'Option 3', SAP_TEXTDOMAIN )
 			)
 		)
 	);
 
+	// Allow third-party addons to hook into your settings page
+	$sap = apply_filters( 'sap_page_setup', $sap );
+
 	// Register all admin pages and settings with WordPress
 	$sap->add_admin_menus();
 ```
+
+Check out the documentation section below for more examples and explanation.
 
 ## License
 
@@ -87,6 +94,229 @@ Simple Admin Pages is released under the GNU GPL 2 or later.
 ## Requirements
 
 Simple Admin Pages has been tested with WordPress versions 3.5 and above.
+
+## Roadmap
+
+- Better documentation
+- Support custom top-level admin pages
+- More custom data types
+
+## Documentation
+
+### sap_initialize_library()
+Instantiate the library by loading the simple-admin-pages.php file and calling sap_initialize_library. You'll do everything with the $sap object that is returned.
+
+**args**
+An array of properties to pass to the library.
+
+*version*
+(required)
+This used to ensure that plugins can play well together even if they use different versions of the library. The version will convert . to _ and append that to the class names which are loaded. If version 1.0 is passed, the library will attempt to load a class named sapAdminPage_1_0.
+
+*lib_url*
+(required)
+The lib_url is used to print stylesheets or scripts attached to the library.
+
+```
+require_once( 'path/to/simple-admin-pages/simple-admin-pages.php' );
+$sap = sap_initialize_library(
+	$args = array(
+		'version'		=> '2.0.a.2', // Version of the library
+		'lib_url'		=> PLUGIN_URL . '/lib/simple-admin-pages/', // URL path to sap library
+	)
+);
+```
+
+### sapLibrary::add_page()
+Create a new page with the library by calling the add_page() method. You can attach the page to the options (Settings) or themes (Appearance) menus or any custom menu.
+
+**type**
+(required)
+What type of admin menu page to create. Accepts:
+
+- "options" - A subpage of the Settings menu
+- "themes" - A subpage of the Appearance menu
+- "submenu" - A subpage of any top-level menu item
+
+**args**
+An array of properties to pass to the page.
+
+*id*
+(required)
+All settings attached to this page will be stored with the page ID and can be retrieved with get_options( $page_id ).
+
+*title*
+(required)
+This will be displayed at the top of the page.
+
+*menu_title*
+(required)
+The title to display in the menu.
+
+*description*
+(optional)
+Actually, I think this one isn't used at the moment.
+
+*capability*
+(required)
+The user permissions access level (capability in WP terms) required to access and edit this page.
+
+*default_tab*
+(optional)
+If your page will have multiple tabs, you need to specify a default tab to display when the page is initially loaded. This must match the ID used in the add_section() method. *Leave this parameter out if you don't need any tabs.*
+
+```
+$sap->add_page(
+	$type,
+	$args = array(
+		'id'			=> 'my-settings',
+		'title'			=> __( 'Page Title', SAP_TEXTDOMAIN ),
+		'menu_title'	=> __( 'menu Title', SAP_TEXTDOMAIN ),
+		'description'	=> '',
+		'capability'	=> 'manage_options'
+		'default_tab'	=> 'tab-one',
+	)
+);
+```
+
+### sapLibrary::add_section()
+Create a new section to attach it to an existing page.
+
+Sections can act as Tabs or as internal sections within the normal settings flow of a Tab or Page. In other words, you can define a section as a tab, attach a section to another section which is acting as a tab, or ignore tabs altogether to display all of your sections at once. The example below adds a tab and then adds a sub-section to that tab.
+
+**page_id**
+Page this section should be attached to. Must match the id passed in add_page().
+
+**args**
+An array of properties to pass to the section.
+
+*id*
+(required)
+Unique slug to which settings will be attached.
+
+*title*
+(required)
+This will be displayed at the top of the settings section.
+
+*description*
+(optional)
+An optional description to display below the title.
+
+*is_tab*
+(optional)
+Set this to true if this section should act like a tab.
+
+*tab*
+(optional)
+Use this to attach a section to an existing tab.
+
+#### Add a section to a page with no tabs:
+```
+$sap->add_section(
+	$page_id,
+	$args = array(
+		'id'            => 'basic-details-section',
+		'title'         => __( 'Basic Details', SAP_TEXTDOMAIN ),
+		'description'   => __( 'This section includes some basic details for you to configure.', SAP_TEXTDOMAIN )
+	)
+);
+```
+
+#### Add a tab and a sub-section to a page with tabs:
+```
+/**
+ * Create a section that acts as a tab with the is_tab parameter.
+ */
+$sap->add_section(
+	$page_id,
+	$args = array(
+		'id'            => 'tab-one',
+		'title'         => __( 'Tab One', SAP_TEXTDOMAIN ),
+		'description'   => __( 'This tab includes some settings for you to configure.', SAP_TEXTDOMAIN ),
+		'is_tab'		=> true,
+	)
+);
+
+/**
+ * Create a sub-section of the tab we just created with the tab parameter.
+ */
+$sap->add_section(
+	$page_id,
+	$args = array(
+		'id'            => 'section-one-under-tab-one',
+		'title'         => __( 'Section One', SAP_TEXTDOMAIN ),
+		'description'   => __( 'This section includes some settings for you to configure.', SAP_TEXTDOMAIN ),
+		'tab'			=> 'tab-one',
+	)
+);
+```
+
+### sapLibrary::add_setting()
+Create a new setting and attach to an existing section.
+
+There are several types of settings, each with their own input arguments. I'll try to document it more in the future. For now, check out the AdminPageSetting.*.class.php files in /classes/.
+
+**page_id**
+(required)
+Page this setting should be attached to. Must match the id passed in add_page().
+
+**section_id**
+(required)
+Section this setting should be attached to. Must match the id passed in add_setting().
+
+**type**
+(required)
+Type of setting to add. There are currently several types supported and you can extend the library with your own. I'll try to document this further. For now, you can see all the types supported by default at sapLibrary::get_setting_classname().
+
+**args**
+An array of properties to pass to the setting.
+
+*id*
+(required)
+Unique slug under which the setting will be saved. You would then retrieve the setting with:
+
+```
+$options = get_option( $page_id );
+$options[$setting_id];
+```
+
+*title*
+(required)
+Title of the setting. Typically acts as the field label.
+
+*description*
+(optional)
+An optional description to display with the setting. Useful for instructions.
+
+*...*
+Several setting types have additional parameters. I'll try to document them further.
+
+```
+$sap->add_setting(
+	$page_id,
+	$section_id,
+	$type,
+	array(
+		'id'            => 'my-first-setting',
+		'title'         => __( 'My First Setting', SAP_TEXTDOMAIN ),
+		'description'	=> __( 'A demonstration of my first setting', SAP_TEXTDOMAIN );
+		...
+	)
+);
+```
+
+### sapLibrary::add_admin_menus()
+Once everything is configured, run this method to register the pages with WordPress.
+
+```
+	// Before you run add_admin_menus, filter the whole library so that
+	// third-party addons can hook into your settings page to add new settings
+	// or adjust existing ones.
+	$sap = apply_filters( 'sap_page_setup', $sap );
+
+	$sap->add_admin_menus();
+```
+
 
 ## Changelog
 
@@ -99,9 +329,3 @@ Simple Admin Pages has been tested with WordPress versions 3.5 and above.
 
 - 1.0 - 2013-11-20
 	- Initial release
-
-## Roadmap
-
-- Support tabs on pages
-- Support custom top-level admin pages
-- More custom data types
