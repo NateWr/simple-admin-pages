@@ -111,10 +111,12 @@ An array of properties to pass to the library.
 
 *version*
 (required)
+
 This used to ensure that plugins can play well together even if they use different versions of the library. The version will convert . to _ and append that to the class names which are loaded. If version 1.0 is passed, the library will attempt to load a class named sapAdminPage_1_0.
 
 *lib_url*
 (required)
+
 The lib_url is used to print stylesheets or scripts attached to the library.
 
 ```
@@ -132,6 +134,7 @@ Create a new page with the library by calling the add_page() method. You can att
 
 **type**
 (required)
+
 What type of admin menu page to create. Accepts:
 
 - "options" - A subpage of the Settings menu
@@ -139,30 +142,37 @@ What type of admin menu page to create. Accepts:
 - "submenu" - A subpage of any top-level menu item
 
 **args**
+
 An array of properties to pass to the page.
 
 *id*
 (required)
+
 All settings attached to this page will be stored with the page ID and can be retrieved with get_options( $page_id ).
 
 *title*
 (required)
+
 This will be displayed at the top of the page.
 
 *menu_title*
 (required)
+
 The title to display in the menu.
 
 *description*
 (optional)
+
 Actually, I think this one isn't used at the moment.
 
 *capability*
 (required)
+
 The user permissions access level (capability in WP terms) required to access and edit this page.
 
 *default_tab*
 (optional)
+
 If your page will have multiple tabs, you need to specify a default tab to display when the page is initially loaded. This must match the ID used in the add_section() method. *Leave this parameter out if you don't need any tabs.*
 
 ```
@@ -185,29 +195,36 @@ Create a new section to attach it to an existing page.
 Sections can act as Tabs or as internal sections within the normal settings flow of a Tab or Page. In other words, you can define a section as a tab, attach a section to another section which is acting as a tab, or ignore tabs altogether to display all of your sections at once. The example below adds a tab and then adds a sub-section to that tab.
 
 **page_id**
+
 Page this section should be attached to. Must match the id passed in add_page().
 
 **args**
+
 An array of properties to pass to the section.
 
 *id*
+
 (required)
 Unique slug to which settings will be attached.
 
 *title*
 (required)
+
 This will be displayed at the top of the settings section.
 
 *description*
 (optional)
+
 An optional description to display below the title.
 
 *is_tab*
 (optional)
+
 Set this to true if this section should act like a tab.
 
 *tab*
 (optional)
+
 Use this to attach a section to an existing tab.
 
 #### Add a section to a page with no tabs:
@@ -258,21 +275,26 @@ There are several types of settings, each with their own input arguments. I'll t
 
 **page_id**
 (required)
+
 Page this setting should be attached to. Must match the id passed in add_page().
 
 **section_id**
 (required)
+
 Section this setting should be attached to. Must match the id passed in add_setting().
 
 **type**
 (required)
+
 Type of setting to add. There are currently several types supported and you can extend the library with your own. I'll try to document this further. For now, you can see all the types supported by default at sapLibrary::get_setting_classname().
 
 **args**
+
 An array of properties to pass to the setting.
 
 *id*
 (required)
+
 Unique slug under which the setting will be saved. You would then retrieve the setting with:
 
 ```
@@ -282,13 +304,16 @@ $options[$setting_id];
 
 *title*
 (required)
+
 Title of the setting. Typically acts as the field label.
 
 *description*
 (optional)
+
 An optional description to display with the setting. Useful for instructions.
 
 *...*
+
 Several setting types have additional parameters. I'll try to document them further.
 
 ```
