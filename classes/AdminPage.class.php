@@ -81,10 +81,10 @@ class sapAdminPage_2_0_a_1 {
 	public function register_admin_menu() {
 
 		foreach ( $this->sections as $section ) {
-			$section->add_settings_section( $this->id ); // @todo tab: settings should use their tab slug if needed. can i put this into the section class?
+			$section->add_settings_section();
 
 			foreach ( $section->settings as $setting ) {
-				$setting->add_settings_field( $this->id, $section->id );
+				$setting->add_settings_field( $section->id );
 			}
 		}
 
@@ -97,17 +97,23 @@ class sapAdminPage_2_0_a_1 {
 	 */
 	public function sanitize_callback( $value ) {
 
+		// Use a new empty value so only values for settings that were added are
+		// passed to the db.
+		$new_value = array();
+
 		foreach ( $this->sections as $section ) {
 			foreach ( $section->settings as $setting ) {
-				if ( isset( $value[$this->id] ) ) {
-					$value[$this->id] = $setting->sanitize_callback_wrapper( $value[$this->id] );
-				} else {
-					unset( $value[$this->id] );
+				if ( isset( $value[$setting->id] ) ) {
+					$new_value[$setting->id] = $setting->sanitize_callback_wrapper( $value[$setting->id] );
 				}
 			}
 		}
-		
-		return $value;
+
+		// Pull in the existing values so we never overwrite values that were
+		// on a different tab
+		$old_value = get_option( $this->id );
+
+		return array_merge( $old_value, $new_value );
 
 	}
 
@@ -120,15 +126,48 @@ class sapAdminPage_2_0_a_1 {
 		if ( !$this->title && !count( $this->settings ) ) {
 			return;
 		}
+
+		if ( !empty( $_GET['tab'] ) ) {
+			$current_page = $_GET['tab'];
+		} elseif ( !empty( $this->default_tab ) ) {
+			$current_page = $this->default_tab;
+		} else {
+			$current_page = $this->id;
+		}
+
 		?>
 
 			<div class="wrap">
+
+				<?php if ( isset( $this->default_tab ) ) : ?>
+				<h2 class="nav-tab-wrapper">
+				<?php
+				foreach( $this->sections as $section ) {
+
+					if ( isset( $section->is_tab ) && $section->is_tab === true ) {
+
+						$tab_url = add_query_arg(
+							array(
+								'settings-updated' => false,
+								'tab' => $section->id
+							)
+						);
+
+						$active = $current_page == $section->id ? ' nav-tab-active' : '';
+						echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $section->title ) . '" class="nav-tab' . $active . '">';
+							echo esc_html( $section->title );
+						echo '</a>';
+					}
+				}
+				?>
+				</h2>
+				<?php endif; ?>
 
 				<?php $this->display_page_title(); ?>
 
 				<form method="post" action="options.php">
 					<?php settings_fields( $this->id ); ?>
-					<?php do_settings_sections( $this->id ); ?>
+					<?php do_settings_sections( $current_page ); ?>
 					<?php if ( $this->show_button ) { submit_button(); } ?>
 				 </form>
 			</div>

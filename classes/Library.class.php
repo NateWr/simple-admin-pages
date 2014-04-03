@@ -241,10 +241,11 @@ class sapLibrary_2_0_a_1 {
 	 */
 	public function add_setting( $page, $section, $type, $args = array() ) {
 
-		if ( !isset( $this->pages[ $page ] ) ) {
+		if ( !isset( $this->pages[ $page ] ) || !isset( $this->pages[ $page ]->sections[ $section ] ) ) {
 			return false;
 		} else {
 			$args['page'] = $page;
+			$args['tab'] = $this->pages[$page]->sections[ $section ]->get_page_slug();
 		}
 
 		$class = $this->get_setting_classname( $type );

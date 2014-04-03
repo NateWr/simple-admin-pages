@@ -93,8 +93,25 @@ class sapAdminPageSection_2_0_a_1 {
 	 * Add the settings section to the page in WordPress
 	 * @since 1.0
 	 */
-	public function add_settings_section( $page_slug ) {
-		add_settings_section( $this->id, $this->title, array( $this, 'display_section' ), $page_slug );
+	public function add_settings_section() {
+		add_settings_section( $this->id, $this->title, array( $this, 'display_section' ), $this->get_page_slug() );
+	}
+
+	/**
+	 * Determine the page slug to use when calling add_settings_section.
+	 *
+	 * Tabs should use their own ID and settings that are attached to tabs
+	 * should use that tab's ID.
+	 * @since 2.0
+	 */
+	public function get_page_slug() {
+		if ( isset( $this->is_tab ) && $this->is_tab === true ) {
+			return $this->id;
+		} elseif ( isset( $this->tab ) ) {
+			return $this->tab;
+		} else {
+			return $this->page;
+		}
 	}
 
 	/**

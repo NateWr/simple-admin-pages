@@ -166,7 +166,7 @@ abstract class sapAdminPageSetting_2_0_a_1 {
 	 *
 	 * @since 1.0
 	 */
-	public function add_settings_field( $page_slug, $section_id ) {
+	public function add_settings_field( $section_id ) {
 
 		// If no sanitization callback exists, don't register the setting.
 		if ( !$this->has_sanitize_callback() ) {
@@ -177,7 +177,7 @@ abstract class sapAdminPageSetting_2_0_a_1 {
 			$this->id,
 			$this->title,
 			array( $this, 'display_setting' ),
-			$page_slug, // @todo tab: this should be the tab if needed
+			$this->tab,
 			$section_id
 		);
 
