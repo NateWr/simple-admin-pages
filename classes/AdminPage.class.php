@@ -97,14 +97,24 @@ class sapAdminPage_2_0_a_1 {
 	 */
 	public function sanitize_callback( $value ) {
 
+		if ( empty( $_POST['_wp_http_referer'] ) ) {
+			return $value;
+		}
+
+		// Get the current page/tab so we only update those settings
+		parse_str( $_POST['_wp_http_referer'], $referrer );
+		$current_page = $this->get_current_page( $referrer );
+
 		// Use a new empty value so only values for settings that were added are
 		// passed to the db.
 		$new_value = array();
 
 		foreach ( $this->sections as $section ) {
 			foreach ( $section->settings as $setting ) {
-				$setting_value = isset( $value[$setting->id] ) ? $value[$setting->id] : '';
-				$new_value[$setting->id] = $setting->sanitize_callback_wrapper( $setting_value );
+				if ( $setting->tab == $current_page ) {
+					$setting_value = isset( $value[$setting->id] ) ? $value[$setting->id] : '';
+					$new_value[$setting->id] = $setting->sanitize_callback_wrapper( $setting_value );
+				}
 			}
 		}
 
@@ -121,6 +131,22 @@ class sapAdminPage_2_0_a_1 {
 	}
 
 	/**
+	 * Get the current page/tab being viewed
+	 * @since 2.0
+	 */
+	public function get_current_page( $request ) {
+
+		if ( !empty( $request['tab'] ) ) {
+			return $request['tab'];
+		} elseif ( !empty( $this->default_tab ) ) {
+			return $this->default_tab;
+		} else {
+			return $this->id;
+		}
+
+	}
+
+	/**
 	 * Output the settings passed to this page
 	 * @since 1.0
 	 */
@@ -130,13 +156,7 @@ class sapAdminPage_2_0_a_1 {
 			return;
 		}
 
-		if ( !empty( $_GET['tab'] ) ) {
-			$current_page = $_GET['tab'];
-		} elseif ( !empty( $this->default_tab ) ) {
-			$current_page = $this->default_tab;
-		} else {
-			$current_page = $this->id;
-		}
+		$current_page = $this->get_current_page( $_GET );
 
 		?>
 
