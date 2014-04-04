@@ -50,8 +50,7 @@ abstract class sapAdminPageSetting_2_0_a_1 {
 		$this->parse_args( $args );
 
 		// Get any existing value
-		$option_group_value = get_option( $this->page );
-		$this->value = isset( $option_group_value[ $this->id ] ) ? $this->esc_value( $option_group_value[ $this->id ] ) : '';
+		$this->set_value();
 
 		// Set an error if the object is missing necessary data
 		if ( $this->missing_data() ) {
@@ -103,6 +102,20 @@ abstract class sapAdminPageSetting_2_0_a_1 {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Set a value
+	 * @since 2.0
+	 */
+	public function set_value( $val = null ) {
+
+		if ( $val === null ) {
+			$option_group_value = get_option( $this->page );
+			$val = isset( $option_group_value[ $this->id ] ) ? $option_group_value[ $this->id ] : '';
+		}
+
+		$this->value = $this->esc_value( $val );
 	}
 
 	/**
