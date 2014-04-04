@@ -21,26 +21,18 @@ class sapAdminPageSettingToggle_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
-	// Whether or not to display a blank option
-	public $blank_option = true;
-
-	/**
-	 * An array of options for this select field, accepted as a key/value pair.
-	 * The key is the option value and the value is the text displayed to the
-	 * user.
-	 */
-	public $options = array();
-
 	/**
 	 * Display this setting
 	 * @since 1.0
 	 */
 	public function display_setting() {
+	
+		$input_name = $this->get_input_name( $this->id, $this->page );
 
 		?>
 
-			<input type="checkbox" name="<?php echo $this->get_input_name( $this->id, $this->page ); ?>" id="<?php echo $this->id; ?>" value="1"<?php if( $this->value == '1' ) : ?> checked="checked"<?php endif; ?>>
-			<label for="<?php echo $this->id; ?>"><?php echo $this->label; ?></label>
+			<input type="checkbox" name="<?php echo $input_name; ?>" id="<?php echo $input_name; ?>" value="1"<?php if( $this->value == '1' ) : ?> checked="checked"<?php endif; ?>>
+			<label for="<?php echo $input_name; ?>"><?php echo $this->label; ?></label>
 
 		<?php
 
