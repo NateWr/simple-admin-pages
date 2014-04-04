@@ -103,9 +103,8 @@ class sapAdminPage_2_0_a_1 {
 
 		foreach ( $this->sections as $section ) {
 			foreach ( $section->settings as $setting ) {
-				if ( isset( $value[$setting->id] ) ) {
-					$new_value[$setting->id] = $setting->sanitize_callback_wrapper( $value[$setting->id] );
-				}
+				$setting_value = isset( $value[$setting->id] ) ? $value[$setting->id] : '';
+				$new_value[$setting->id] = $setting->sanitize_callback_wrapper( $setting_value );
 			}
 		}
 
