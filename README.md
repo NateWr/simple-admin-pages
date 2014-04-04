@@ -342,6 +342,23 @@ Once everything is configured, run this method to register the pages with WordPr
 	$sap->add_admin_menus();
 ```
 
+### Backwards Compatibility
+Version 2.0 introduced changes which break backwards compatibility due to the way that the library now stores data in the database. If you are upgrading the version of this library used in your plugin or theme, you must call ```$sap->port_data(2);``` **after** you have declared all of your settings but **before** you call ```$sap->add_admin_menus();```.
+
+This changes the way that your settings are stored in the database. Previously, each setting was stored as its own option. Now all the settings on a page are stored in one row.
+
+You will need to update your plugin to retrieve the settings from their new location. If you previously accessed a setting this way:
+
+```
+$my_setting = get_option( $my_setting_id );
+```
+
+You should now access the setting this way:
+
+```
+$all_page_settings = get_option( $settings_page_id );
+$all_page_settings[ $my_setting_id ];
+```
 
 ## Changelog
 
