@@ -112,7 +112,11 @@ class sapAdminPage_2_0_a_1 {
 		// on a different tab
 		$old_value = get_option( $this->id );
 
-		return array_merge( $old_value, $new_value );
+		if ( is_array( $old_value ) ) {
+			return array_merge( $old_value, $new_value );
+		} else {
+			return $new_value;
+		}
 
 	}
 
