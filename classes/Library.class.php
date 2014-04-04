@@ -291,6 +291,72 @@ class sapLibrary_2_0_a_1 {
 	}
 
 	/**
+	 * Port data from a previous version to the current version
+	 *
+	 * Version 2.0 of the library changes the structure of how it stores data.
+	 * In order to upgrade the version of the library your plugin/theme is
+	 * using, this method must be called after all of your pages and settings
+	 * have been declared but before you run add_admin_menus().
+	 *
+	 * This method will loop over all of the settings data and port any existing
+	 * data to the new data structure. It will check if the data has been ported
+	 * first before it updates the data. The old data will be removed to keep
+	 * the database clean.
+	 *
+	 * @var int target_version Which data version the library should update to.
+	 * @since 2.0
+	 */
+	public function port_data( $target_version, $delete_old_data = true ) {
+
+		// Port data to the storage structure in version 2
+		if ( $target_version == 2 ) {
+
+			foreach ( $this->pages as $page_id => $page ) {
+
+				// Skip if this page has already been ported
+				if ( get_option( $page_id ) !== false ) {
+					continue;
+				}
+
+				$page_values = array();
+
+				foreach ( $page->sections as $section ) {
+					foreach ( $section->settings as $setting ) {
+						$value = get_option( $setting->id );
+						if ( $value !== false ) {
+							$page_values[ $setting->id ] = $value;
+						}
+					}
+				}
+
+				if ( count( $page_values ) ) {
+					$result = add_option( $page_id, $page_values );
+
+					// Delete old data if the flag is set and the new data was
+					// saved successfully.
+					if ( $delete_old_data === true && $result !== false ) {
+						foreach( $page_values as $setting_id => $setting_value ) {
+							delete_option( $setting_id );
+						}
+					}
+
+					// Reset settings values
+					if ( $result === true ) {
+
+						foreach ( $page->sections as $section ) {
+							foreach ( $section->settings as $setting ) {
+								$setting->set_value();
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+	/**
 	 * Enqueue the CSS stylesheet
 	 * @since 1.0
 	 */
