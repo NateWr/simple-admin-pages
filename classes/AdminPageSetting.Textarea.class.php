@@ -18,7 +18,7 @@ class sapAdminPageSettingTextarea_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 	 * and setting this to 'large' will link into WordPress's existing textarea
 	 * style for full-width textareas.
 	 */
-	private $size = 'small';
+	public $size = 'small';
 
 	public $sanitize_callback = 'sanitize_text_field';
 	
