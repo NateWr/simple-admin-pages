@@ -162,6 +162,8 @@ class sapAdminPage_2_0_a_1 {
 
 			<div class="wrap">
 
+				<?php $this->display_page_title(); ?>
+
 				<?php if ( isset( $this->default_tab ) ) : ?>
 				<h2 class="nav-tab-wrapper">
 				<?php
@@ -185,8 +187,6 @@ class sapAdminPage_2_0_a_1 {
 				?>
 				</h2>
 				<?php endif; ?>
-
-				<?php $this->display_page_title(); ?>
 
 				<form method="post" action="options.php">
 					<?php settings_fields( $this->id ); ?>
