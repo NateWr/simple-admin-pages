@@ -7,9 +7,15 @@
  * @package Simple Admin Pages
 */
 
+/**
+ * Textarea
+ */
 textarea.small-text {
 	width: 25em;
 	height: 10em;
+}
+textarea.large-text {
+	height: 30em;
 }
 
 /*
