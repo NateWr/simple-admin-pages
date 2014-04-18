@@ -247,7 +247,7 @@ jQuery(document).ready(function ($) {
 		function sap_scheduler_set_date_phrase( scheduler_rule, scheduler_id ) {
 
 			var date_value = scheduler_rule.find( '.sap-scheduler-date-input input' ).val();
-			if ( date_value != '' ) {
+			if ( typeof date_value !== 'undefined' && date_value != '' ) {
 				scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( date_value );
 
 				return;
@@ -262,7 +262,7 @@ jQuery(document).ready(function ($) {
 				}
 			});
 
-			if ( weekdays == 0 ) {
+			if ( weekdays == 0 && sap_scheduler.settings[ scheduler_id ].disable_weekdays === false ) {
 				scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( sap_scheduler.summaries['never'] );
 
 				return;
@@ -283,13 +283,23 @@ jQuery(document).ready(function ($) {
 				}
 			});
 
-			if ( weeks == 0 || weeks == 5 ) {
+			if ( ( weeks == 0 || weeks == 5 ) && sap_scheduler.settings[ scheduler_id ].disable_weekdays === false ) {
 				scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( weekday_string );
 
 				return;
 			}
 
-			scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( sap_scheduler.summaries['monthly_partial'].replace( '{days}', weekday_arr.join( ', ' ) ).replace( '{weeks}', weeks_arr.join( ', ' ) ) );
+			if ( weeks == 0 ) {
+				scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( sap_scheduler.summaries['never'] );
+
+				return;
+			}
+
+			if ( weekday_string != '' ) {
+				scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( sap_scheduler.summaries['monthly_weekdays'].replace( '{days}', weekday_arr.join( ', ' ) ).replace( '{weeks}', weeks_arr.join( ', ' ) ) );
+			} else {
+				scheduler_rule.find( '.sap-scheduler-brief .date .value' ).html( sap_scheduler.summaries['monthly_weeks'].replace( '{weeks}', weeks_arr.join( ', ' ) ) );
+			}
 		}
 
 		/**

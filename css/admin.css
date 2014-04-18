@@ -69,10 +69,10 @@ input.sap-opening-hours-hours {
 .sap-selector li {
 	display: inline-block;
 	margin-right: 1em;
+	line-height: 20px;
 }
 .sap-selector a {
 	text-decoration: none;
-	line-height: 20px;
 }
 .sap-selector .selected {
 	font-weight: 600;
