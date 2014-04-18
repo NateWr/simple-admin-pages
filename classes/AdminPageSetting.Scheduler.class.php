@@ -70,6 +70,11 @@ class sapAdminPageSettingScheduler_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 	public $disable_time = false;
 
 	/**
+	 * Boolean to disable the end time selection option
+	 */
+	public $disable_end_time = false;
+
+	/**
 	 * Escape the value to display it in text fields and other input fields
 	 * @since 2.0
 	 */
@@ -207,7 +212,7 @@ class sapAdminPageSettingScheduler_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 		?>
 
 		<div class="sap-scheduler-rule clearfix<?php echo $list ? ' list' : ''; ?>">
-			<div class="sap-scheduler-date <?php echo $date_format; ?>">
+			<div class="sap-scheduler-date <?php echo $date_format; echo $this->disable_time === true ? ' full-width' : ''; ?>">
 				<ul class="sap-selector">
 
 				<?php if ( !$this->has_multiple_date_formats() ) : ?>
@@ -293,7 +298,10 @@ class sapAdminPageSettingScheduler_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 				<?php endif; ?>
 
 			</div>
+
+			<?php if ( $this->disable_time === false ) : ?>
 			<div class="sap-scheduler-time <?php echo $time_format; ?>">
+
 				<ul class="sap-selector">
 					<li>
 						<div class="dashicons dashicons-clock"></div>
@@ -307,33 +315,45 @@ class sapAdminPageSettingScheduler_2_0_a_1 extends sapAdminPageSetting_2_0_a_1 {
 						</a>
 					</li>
 				</ul>
+
 				<div class="sap-scheduler-time-input clearfix">
+
 					<div class="start">
 						<label for="<?php echo $this->get_input_name(); ?>[<?php echo $id; ?>][time][start]">
 							<?php _ex( 'Start', 'Label for the starting time of a scheduling rule', SAP_TEXTDOMAIN ); ?>
 						</label>
 						<input type="text" name="<?php echo $this->get_input_name() . '[' . $id . '][time][start]'; ?>" id="<?php echo $this->get_input_name() . '[' . $id . '][time][start]'; ?>" value="<?php echo empty( $values['time']['start'] ) ? '' : $values['time']['start']; ?>">
 					</div>
+
+					<?php if ( $this->disable_end_time === false ) : ?>
 					<div class="end">
 						<label for="<?php echo $this->get_input_name(); ?>[<?php echo $id; ?>][time][end]">
 							<?php _ex( 'End', 'Label for the ending time of a scheduling rule', SAP_TEXTDOMAIN ); ?>
 						</label>
 						<input type="text" name="<?php echo $this->get_input_name() . '[' . $id . '][time][end]'; ?>" id="<?php echo $this->get_input_name() . '[' . $id . '][time][end]'; ?>" value="<?php echo empty( $values['time']['end'] ) ? '' : $values['time']['end']; ?>">
 					</div>
+					<?php endif; ?>
+
 				</div>
+
 				<div class="sap-scheduler-all-day">
 					<?php _ex( 'All day long. Want to <a href="#" data-format="time-slot">set a time slot</a>?', 'Prompt displayed when a scheduling rule is set without any time restrictions.', SAP_TEXTDOMAIN ); ?>
 				</div>
+
 			</div>
+			<?php endif; ?>
+
 			<div class="sap-scheduler-brief">
 				<div class="date">
 					<div class="dashicons dashicons-calendar"></div>
 					<span class="value"><?php echo $this->get_date_summary( $values ); ?></span>
 				</div>
+				<?php if ( $this->disable_time === false ) : ?>
 				<div class="time">
 					<div class="dashicons dashicons-clock"></div>
 					<span class="value"><?php echo $this->get_time_summary( $values ); ?></span>
 				</div>
+				<?php endif; ?>
 			</div>
 			<div class="sap-scheduler-control">
 				<a href="#" class="toggle" title="<?php _e( 'Open and close this rule', SAP_TEXTDOMAIN ); ?>">

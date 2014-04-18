@@ -311,7 +311,7 @@ jQuery(document).ready(function ($) {
 			var start = scheduler_rule.find( '.sap-scheduler-time-input .start input' ).val();
 			var end = scheduler_rule.find( '.sap-scheduler-time-input .end input' ).val();
 
-			if ( start == '' && end == '' ) {
+			if ( start == '' && ( end == '' || typeof end == 'undefined' ) ) {
 				scheduler_rule.find( '.sap-scheduler-brief .time .value' ).html( sap_scheduler.summaries['all_day'] );
 
 				return;
@@ -323,13 +323,17 @@ jQuery(document).ready(function ($) {
 				return;
 			}
 
-			if ( end == '' ) {
+			if ( end == '' || typeof end == 'undefined' ) {
 				scheduler_rule.find( '.sap-scheduler-brief .time .value' ).html( sap_scheduler.summaries['after'] + ' ' + start );
 
 				return;
 			}
 
-			return scheduler_rule.find( '.sap-scheduler-brief .time .value' ).html( start + sap_scheduler.summaries['separator'] + end );
+			if ( typeof end == 'undefined' ) {
+				return scheduler_rule.find( '.sap-scheduler-brief .time .value' ).html( start );
+			} else {
+				return scheduler_rule.find( '.sap-scheduler-brief .time .value' ).html( start + sap_scheduler.summaries['separator'] + end );
+			}
 		}
 	}
 

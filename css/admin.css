@@ -200,6 +200,10 @@ input.sap-opening-hours-hours {
 		float: left;
 		width: 50%;
 	}
+	.sap-scheduler-date.full-width {
+		float: none;
+		width: 100%;
+	}
 	.sap-scheduler-time {
 		float: right;
 		width: 50%;
