@@ -20,7 +20,7 @@ class sapAdminPageSettingTextarea_2_0_a_2 extends sapAdminPageSetting_2_0_a_2 {
 	 */
 	public $size = 'small';
 
-	public $sanitize_callback = 'sanitize_text_field';
+	public $sanitize_callback = 'wp_kses';
 	
 	/**
 	 * Escape the value to display it safely HTML textarea fields
