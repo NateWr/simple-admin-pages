@@ -1,5 +1,5 @@
 <?php
-if ( !class_exists( 'sapLibrary_2_0_a_1' ) ) {
+if ( !class_exists( 'sapLibrary_2_0_a_2' ) ) {
 /**
  * This library class loads and provides access to the correct version of the
  * Simple Admin Pages library.
@@ -7,10 +7,10 @@ if ( !class_exists( 'sapLibrary_2_0_a_1' ) ) {
  * @since 1.0
  * @package Simple Admin Pages
  */
-class sapLibrary_2_0_a_1 {
+class sapLibrary_2_0_a_2 {
 
 	// Version of the library
-	private $version = '2.0.a.1';
+	private $version = '2.0.a.2';
 
 	// A full URL to the library which is used to correctly link scripts and
 	// stylesheets.
@@ -206,6 +206,9 @@ class sapLibrary_2_0_a_1 {
 		if ( $menu_location == 'themes' ) {
 			$this->load_class( 'sapAdminPageThemes', 'AdminPage.Themes.class.php' );
 			$class = $this->get_versioned_classname( 'sapAdminPageThemes' );
+		} elseif ( $menu_location == 'menu' ) {
+			$this->load_class( 'sapAdminPageMenu', 'AdminPage.Menu.class.php' );
+			$class = $this->get_versioned_classname( 'sapAdminPageMenu' );
 		} elseif ( $menu_location == 'submenu' ) {
 			$this->load_class( 'sapAdminPageSubmenu', 'AdminPage.Submenu.class.php' );
 			$class = $this->get_versioned_classname( 'sapAdminPageSubmenu' );
