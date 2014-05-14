@@ -371,6 +371,8 @@ $all_page_settings[ $my_setting_id ];
 - 2.0.a.4 - 2014-05-15
 	- Only load assets when component is called
 	- Revert adding version number to script handles
+	- Fix localized script handler for Scheduler
+	- Fix pickadate CSS rule specificity
 
 - 2.0.a.3 - 2014-05-14
 	- Fix undefined function error in Scheduler javascript when using Firefox
