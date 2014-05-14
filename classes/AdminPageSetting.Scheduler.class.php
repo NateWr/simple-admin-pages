@@ -235,7 +235,7 @@ class sapAdminPageSettingScheduler_2_0_a_4 extends sapAdminPageSetting_2_0_a_4 {
 		// This gets called multiple times, but only the last call is actually
 		// pushed to the script.
 		wp_localize_script(
-			'sap-admin-script',
+			'sap-scheduler',
 			'sap_scheduler',
 			array(
 				'settings' => $sap_scheduler_settings
