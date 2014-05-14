@@ -136,7 +136,7 @@ input.sap-opening-hours-hours {
 	max-width: 8em;
 }
 .sap-scheduler-all-day {
-	display: inline-block;
+	display: block;
 	margin-top: 1.7em;
 	font-style: italic;
 	padding: 1em;
