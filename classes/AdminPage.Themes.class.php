@@ -8,7 +8,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageThemes_2_0_a_2 extends sapAdminPage_2_0_a_2 {
+class sapAdminPageThemes_2_0_a_3 extends sapAdminPage_2_0_a_3 {
 	
 	public $setup_function = 'add_theme_page'; // WP function to register the page
 
