@@ -76,12 +76,6 @@ class sapAdminPageSettingScheduler_2_0_a_4 extends sapAdminPageSetting_2_0_a_4 {
 			'version'		=> '3.5.0',
 			'media'			=> null,
 		),
-		'pickadate-default' => array(
-			'path'			=> 'lib/pickadate/themes/default.css',
-			'dependencies'	=> '',
-			'version'		=> '3.5.0',
-			'media'			=> null,
-		),
 	);
 
 	public $weekdays = array(
