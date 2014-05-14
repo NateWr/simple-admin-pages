@@ -24,47 +24,6 @@ jQuery(document).ready(function ($) {
 	 if ( typeof sap_scheduler != 'undefined' ) {
 
 		/**
-		 * Register click events on load
-		 */
-		sap_scheduler_register_events();
-
-		/**
-		 * Enable datepickers on load
-		 */
-		if ( typeof sap_scheduler.settings != 'undefined' ) {
-			for ( var key in sap_scheduler.settings ) {
-				var obj = sap_scheduler.settings[key];
-				$( '#' + key + ' .sap-scheduler-date-input input' ).pickadate({
-					format: obj.date_format,
-				});
-				$( '#' + key + ' .sap-scheduler-time-input input' ).pickatime({
-					interval: obj.time_interval,
-					format: obj.time_format,
-				});
-			}
-		}
-
-		/**
-		 * Add a new scheduler panel
-		 */
-		$( '.sap-add-scheduler a' ).click( function() {
-			var scheduler = $(this).parent().siblings( '.sap-scheduler' );
-			var scheduler_id = scheduler.attr( 'id' );
-			var scheduler_settings = sap_scheduler.settings[ scheduler_id ];
-			scheduler.append( scheduler_settings.template.replace( /\[0\]/g, '[' + scheduler.children( '.sap-scheduler-rule' ).length + ']' ) );
-			scheduler.last( '#' + scheduler_id + ' .sap-scheduler-rule' ).find( '.sap-scheduler-date-input input' ).pickadate({
-				format: scheduler_settings.date_format,
-			});
-			scheduler.last( '#' + scheduler_id + ' .sap-scheduler-rule' ).find( '.sap-scheduler-time-input input' ).pickatime({
-				interval: scheduler_settings.time_interval,
-				format: scheduler_settings.time_format,
-			});
-			sap_scheduler_register_events();
-
-			return false;
-		});
-
-		/**
 		 * Register event handlers on the scheduler rules. This is run on page load
 		 * and every time a rule is added.
 		 */
@@ -335,6 +294,47 @@ jQuery(document).ready(function ($) {
 				return scheduler_rule.find( '.sap-scheduler-brief .time .value' ).html( start + sap_scheduler.settings[scheduler_id].summaries['separator'] + end );
 			}
 		}
+
+		/**
+		 * Register click events on load
+		 */
+		sap_scheduler_register_events();
+
+		/**
+		 * Enable datepickers on load
+		 */
+		if ( typeof sap_scheduler.settings != 'undefined' ) {
+			for ( var key in sap_scheduler.settings ) {
+				var obj = sap_scheduler.settings[key];
+				$( '#' + key + ' .sap-scheduler-date-input input' ).pickadate({
+					format: obj.date_format,
+				});
+				$( '#' + key + ' .sap-scheduler-time-input input' ).pickatime({
+					interval: obj.time_interval,
+					format: obj.time_format,
+				});
+			}
+		}
+
+		/**
+		 * Add a new scheduler panel
+		 */
+		$( '.sap-add-scheduler a' ).click( function() {
+			var scheduler = $(this).parent().siblings( '.sap-scheduler' );
+			var scheduler_id = scheduler.attr( 'id' );
+			var scheduler_settings = sap_scheduler.settings[ scheduler_id ];
+			scheduler.append( scheduler_settings.template.replace( /\[0\]/g, '[' + scheduler.children( '.sap-scheduler-rule' ).length + ']' ) );
+			scheduler.last( '#' + scheduler_id + ' .sap-scheduler-rule' ).find( '.sap-scheduler-date-input input' ).pickadate({
+				format: scheduler_settings.date_format,
+			});
+			scheduler.last( '#' + scheduler_id + ' .sap-scheduler-rule' ).find( '.sap-scheduler-time-input input' ).pickatime({
+				interval: scheduler_settings.time_interval,
+				format: scheduler_settings.time_format,
+			});
+			sap_scheduler_register_events();
+
+			return false;
+		});
 	}
 
 });
