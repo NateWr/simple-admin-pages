@@ -375,19 +375,19 @@ class sapLibrary_2_0_a_2 {
 	public function enqueue_scripts() {
 
 		// Load the pickadate library
-		wp_enqueue_style( 'pickadate-default', $this->lib_url . 'lib/pickadate/themes/default.css' );
-		wp_enqueue_style( 'pickadate-date', $this->lib_url . 'lib/pickadate/themes/default.date.css' );
-		wp_enqueue_style( 'pickadate-time', $this->lib_url . 'lib/pickadate/themes/default.time.css' );
-		wp_enqueue_script( 'pickadate', $this->lib_url . 'lib/pickadate/picker.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'pickadate-date', $this->lib_url . 'lib/pickadate/picker.date.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'pickadate-time', $this->lib_url . 'lib/pickadate/picker.time.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'pickadate-legacy', $this->lib_url . 'lib/pickadate/legacy.js', array( 'jquery' ), '', true );
+		wp_enqueue_style( 'pickadate-default-' . $this->version, $this->lib_url . 'lib/pickadate/themes/default.css' );
+		wp_enqueue_style( 'pickadate-date-' . $this->version, $this->lib_url . 'lib/pickadate/themes/default.date.css' );
+		wp_enqueue_style( 'pickadate-time-' . $this->version, $this->lib_url . 'lib/pickadate/themes/default.time.css' );
+		wp_enqueue_script( 'pickadate-' . $this->version, $this->lib_url . 'lib/pickadate/picker.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'pickadate-date-' . $this->version, $this->lib_url . 'lib/pickadate/picker.date.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'pickadate-time-' . $this->version, $this->lib_url . 'lib/pickadate/picker.time.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'pickadate-legacy-' . $this->version, $this->lib_url . 'lib/pickadate/legacy.js', array( 'jquery' ), '', true );
 		// @todo is there some way I can enqueue this for RTL languages
-		// wp_enqueue_style( 'pickadate-rtl', $this->lib_url . 'lib/pickadate/themes/rtl.css' );
+		// wp_enqueue_style( 'pickadate-rtl-' . $this->version, $this->lib_url . 'lib/pickadate/themes/rtl.css' );
 
 		// Default styles and scripts
-		wp_enqueue_style( 'sap-admin-style', $this->lib_url . 'css/admin.css' );
-		wp_enqueue_script( 'sap-admin-script', $this->lib_url . 'js/admin.js', array( 'jquery' ), '1.0', true );
+		wp_enqueue_style( 'sap-admin-style-' . $this->version, $this->lib_url . 'css/admin.css' );
+		wp_enqueue_script( 'sap-admin-script-' . $this->version, $this->lib_url . 'js/admin.js', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
