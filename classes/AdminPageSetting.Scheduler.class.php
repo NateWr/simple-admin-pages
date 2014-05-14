@@ -13,6 +13,76 @@
 class sapAdminPageSettingScheduler_2_0_a_3 extends sapAdminPageSetting_2_0_a_3 {
 
 	public $sanitize_callback = 'sanitize_text_field';
+	
+	/**
+	 * Scripts that must be loaded for this component
+	 * @since 2.0.a.4
+	 */
+	public $scripts = array(
+		'pickadate' => array(
+			'path'			=> 'lib/pickadate/picker.js',
+			'dependencies'	=> array( 'jquery' ),
+			'version'		=> '3.5.0',
+			'footer'		=> true,
+		),
+		'pickadate-date' => array(
+			'path'			=> 'lib/pickadate/picker.date.js',
+			'dependencies'	=> array( 'jquery' ),
+			'version'		=> '3.5.0',
+			'footer'		=> true,
+		),
+		'pickadate-time' => array(
+			'path'			=> 'lib/pickadate/picker.time.js',
+			'dependencies'	=> array( 'jquery' ),
+			'version'		=> '3.5.0',
+			'footer'		=> true,
+		),
+		'pickadate-legacy' => array(
+			'path'			=> 'lib/pickadate/legacy.js',
+			'dependencies'	=> array( 'jquery' ),
+			'version'		=> '3.5.0',
+			'footer'		=> true,
+		),
+		'sap-scheduler' => array(
+			'path'			=> 'js/scheduler.js',
+			'dependencies'	=> array( 'jquery' ),
+			'version'		=> '2.0.a.4',
+			'footer'		=> true,
+		),
+		// @todo there should be some way to load alternate language .js files
+		//	and RTL CSS scripts
+	);
+
+	/**
+	 * Styles that must be loaded for this component
+	 * @since 2.0.a.4
+	 */
+	public $styles = array(
+		'pickadate-default' => array(
+			'path'			=> 'lib/pickadate/themes/default.css',
+			'dependencies'	=> '',
+			'version'		=> '3.5.0',
+			'media'			=> null,
+		),
+		'pickadate-date' => array(
+			'path'			=> 'lib/pickadate/themes/default.date.css',
+			'dependencies'	=> '',
+			'version'		=> '3.5.0',
+			'media'			=> null,
+		),
+		'pickadate-time' => array(
+			'path'			=> 'lib/pickadate/themes/default.time.css',
+			'dependencies'	=> '',
+			'version'		=> '3.5.0',
+			'media'			=> null,
+		),
+		'pickadate-default' => array(
+			'path'			=> 'lib/pickadate/themes/default.css',
+			'dependencies'	=> '',
+			'version'		=> '3.5.0',
+			'media'			=> null,
+		),
+	);
 
 	public $weekdays = array(
 		'monday'		=> 'Mo',

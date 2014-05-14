@@ -368,26 +368,28 @@ class sapLibrary_2_0_a_3 {
 	}
 
 	/**
-	 * Enqueue the CSS stylesheet
+	 * Enqueue the stylesheets and scripts
 	 * @since 1.0
 	 * @todo complex settings should enqueue their assets only when loaded
 	 */
 	public function enqueue_scripts() {
-
-		// Load the pickadate library
-		wp_enqueue_style( 'pickadate-default-' . $this->version, $this->lib_url . 'lib/pickadate/themes/default.css' );
-		wp_enqueue_style( 'pickadate-date-' . $this->version, $this->lib_url . 'lib/pickadate/themes/default.date.css' );
-		wp_enqueue_style( 'pickadate-time-' . $this->version, $this->lib_url . 'lib/pickadate/themes/default.time.css' );
-		wp_enqueue_script( 'pickadate-' . $this->version, $this->lib_url . 'lib/pickadate/picker.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'pickadate-date-' . $this->version, $this->lib_url . 'lib/pickadate/picker.date.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'pickadate-time-' . $this->version, $this->lib_url . 'lib/pickadate/picker.time.js', array( 'jquery' ), '', true );
-		wp_enqueue_script( 'pickadate-legacy-' . $this->version, $this->lib_url . 'lib/pickadate/legacy.js', array( 'jquery' ), '', true );
-		// @todo is there some way I can enqueue this for RTL languages
-		// wp_enqueue_style( 'pickadate-rtl-' . $this->version, $this->lib_url . 'lib/pickadate/themes/rtl.css' );
+		
+		// Enqueue assets for specific settings
+		foreach ( $this->pages as $page ) {
+			foreach ( $page->sections as $section ) {
+				foreach ( $section->settings as $setting ) {
+					foreach( $setting->scripts as $handle => $script ) {
+						wp_enqueue_script( $handle, $this->lib_url . $script['path'], $script['dependencies'], $script['version'], $script['footer'] );
+					}
+					foreach( $setting->styles as $handle => $style ) {
+						wp_enqueue_style( $handle . '-' . $this->version, $this->lib_url . $style['path'], $style['dependencies'], $style['version'], $style['media'] );
+					}
+				}
+			}
+		}
 
 		// Default styles and scripts
 		wp_enqueue_style( 'sap-admin-style-' . $this->version, $this->lib_url . 'css/admin.css' );
-		wp_enqueue_script( 'sap-admin-script-' . $this->version, $this->lib_url . 'js/admin.js', array( 'jquery' ), $this->version, true );
 	}
 
 	/**
