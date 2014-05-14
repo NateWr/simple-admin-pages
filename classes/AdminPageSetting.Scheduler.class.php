@@ -548,6 +548,10 @@ class sapAdminPageSettingScheduler_2_0_a_2 extends sapAdminPageSetting_2_0_a_2 {
 	public function sanitize_callback_wrapper( $values ) {
 
 		$output = array();
+		
+		if ( !is_array( $values ) || !count( $values ) ) {
+			return $output;
+		}
 
 		foreach ( $values as $i => $rule ) {
 
