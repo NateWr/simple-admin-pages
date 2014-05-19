@@ -161,6 +161,10 @@ class sapLibrary_2_0_a_5 {
 				require_once('AdminPageSetting.OpeningHours.class.php');
 				return $this->get_versioned_classname( 'sapAdminPageSettingOpeningHours' );
 
+			case 'address' :
+				require_once('AdminPageSetting.Address.class.php');
+				return $this->get_versioned_classname( 'sapAdminPageSettingAddress' );
+
 			default :
 
 				// Exit early if a custom type is declared without providing the
