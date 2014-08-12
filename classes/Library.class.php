@@ -180,6 +180,11 @@ class sapLibrary_2_0_a_5 {
 					require_once( $type['filename'] );
 				} elseif ( isset( $this->lib_extension_path ) && file_exists( $this->lib_extension_path . $type['filename'] ) ) {
 					require_once( $this->lib_extension_path . '/' . $type['filename'] );
+					if ( !class_exists( $type['class'] ) ) {
+						return false;
+					} else {
+						return $type['class'];
+					}
 				} else {
 					return false;
 				}
@@ -264,7 +269,7 @@ class sapLibrary_2_0_a_5 {
 		}
 
 		$class = $this->get_setting_classname( $type );
-		if ( ( $class && class_exists( $class ) ) && is_subclass_of( $class, $this->get_versioned_classname( 'sapAdminPageSetting' ) ) ) {
+		if ( $class && class_exists( $class ) ) {
 			$this->pages[ $page ]->sections[ $section ]->add_setting( new $class( $args ) );
 		}
 
