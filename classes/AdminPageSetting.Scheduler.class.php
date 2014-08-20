@@ -46,7 +46,7 @@ class sapAdminPageSettingScheduler_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 		'sap-scheduler' => array(
 			'path'			=> 'js/scheduler.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '2.0.a.5',
+			'version'		=> '2.0.a.7',
 			'footer'		=> true,
 		),
 		// @todo there should be some way to load alternate language .js files
