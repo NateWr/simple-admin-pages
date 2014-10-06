@@ -19,14 +19,17 @@ yet.*
 
 - Text field
 - Textarea field
-- Checkbox (single option to enable/disable setting)
+- Toggle (checkbox to enable/disable setting)
 - Select dropdown with custom options
 - Select dropdown of any post type
 - Select dropdown of any taxonomy type
 - HTML Content (for instructions, links or other inert text)
+- WordPress Editor
 
 ## Controls Supported for Special Use Cases
 
+- Date and Time Scheduler
+- Google Map Address (with GeoLocation)
 - Business Opening Hours
 
 ## Usage
