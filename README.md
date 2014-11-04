@@ -371,6 +371,14 @@ $all_page_settings[ $my_setting_id ];
 
 ## Changelog
 
+- 2.0.a.7 - 2014-08-20
+	- Only enqueue assets on appropriate admin pages to prevent version conflicts and be a good citizen
+	- Enforce stored date/time formats so date format is reliable
+
+- 2.0.a.6 - 2014-08-12
+	- Add Google Map Address component
+	- Custom settings loaded through the extension path should not use versions
+
 - 2.0.a.5 - 2014-05-15
 	- Fix a bug with the Textarea component callback
 
