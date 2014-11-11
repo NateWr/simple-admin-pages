@@ -34,6 +34,67 @@ class sapAdminPageSettingAddress_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 	public $sanitize_callback = 'sanitize_text_field';
 
 	/**
+	 * Translateable strings required for this component
+	 * @since 2.0.a.8
+	 */
+	public $strings = array(
+		'sep-action-links'	=> null, // | (Separates action links in address component)
+		'sep-lat-lon'		=> null, // , (Separates latitude and longitude)
+		'no-setting'		=> null, // No map coordinates set.
+		'retrieving'		=> null, // Requesting new coordaintes.
+		'select'			=> null, // Select a match below
+		'view'				=> null, // View
+		'retrieve'			=> null, // Retrieve map coordinates
+		'remove'			=> null, // Remove map coordinates
+		'try_again'			=> null, // Try again?
+		'result_error'		=> null, // Error
+		'result_invalid'	=> null, // Invalid request. Be sure to fill out the address field before retrieving coordinates.
+		'result_denied'		=> null, // Request denied.
+		'result_limit'		=> null, // Request denied because you are over your request quota.
+		'result_empty'		=> null, // Nothing was found at that address.
+	);
+
+	/**
+	 * Check for missing data when setup.
+	 * @since 2.0.a.8
+	 */
+	private function missing_data() {
+
+		$error_type = 'missing_data';
+
+		// Required fields
+		if ( empty( $this->id ) ) {
+			$this->set_error(
+				array(
+					'type'		=> $error_type,
+					'data'		=> 'id'
+				)
+			);
+		}
+		if ( empty( $this->title ) ) {
+			$this->set_error(
+				array(
+					'type'		=> $error_type,
+					'data'		=> 'title'
+				)
+			);
+		}
+
+		// Check for strings
+		foreach ( $this->strings as $id => $string ) {
+
+			if ( $string === null ) {
+				$this->set_error(
+					array(
+						'type'		=> $error_type,
+						'data'		=> 'string: ' . $id,
+					)
+				);
+			}
+		}
+	}
+
+	/**
 	 * Escape the value to display it safely HTML textarea fields
 	 * @since 2.0.a.5
 	 */
@@ -77,28 +138,12 @@ class sapAdminPageSettingAddress_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 	 * @since 2.0.a.5
 	 */
 	public function display_setting() {
-	
-		$strings = array(
-			'sep-lat-lon'		=> _x( ', ', 'separates latitude and longitude', SAP_TEXTDOMAIN ),
-			'no-setting'		=> __( 'No map coordinates set.', SAP_TEXTDOMAIN ),
-			'retrieving'		=> __( 'Requesting new coordinates', SAP_TEXTDOMAIN ),
-			'select'			=> __( 'Select a match below', SAP_TEXTDOMAIN ),
-			'view'				=> __( 'View', SAP_TEXTDOMAIN ),
-			'retrieve'			=> __( 'Retrieve map coordinates', SAP_TEXTDOMAIN ),
-			'remove'			=> __( 'Remove map coordinates', SAP_TEXTDOMAIN ),
-			'try_again'			=> __( 'Try again?', SAP_TEXTDOMAIN ),
-			'result_error'		=> __( 'Error', SAP_TEXTDOMAIN ),
-			'result_invalid'	=> __( 'Invalid request. Be sure to fill out the address field before retrieving coordinates.', SAP_TEXTDOMAIN ),
-			'result_denied'		=> __( 'Request denied.', SAP_TEXTDOMAIN ),
-			'result_limit'		=> __( 'Request denied because you are over your request quota.', SAP_TEXTDOMAIN ),
-			'result_empty'		=> __( 'Nothing was found at that address', SAP_TEXTDOMAIN ),
-		);
 
 		wp_localize_script(
 			'sap-address',
 			'sap_address',
 			array(
-				'strings' => $strings,
+				'strings' => $this->strings,
 			)
 		);
 
@@ -112,20 +157,20 @@ class sapAdminPageSettingAddress_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 				<span class="dashicons dashicons-location-alt"></span>
 				<span class="sap-map-coords">
 				<?php if ( empty( $this->value['lat'] ) || empty( $this->value['lon'] ) ) : ?>
-					<?php echo $strings['no-setting']; ?>
+					<?php echo $this->strings['no-setting']; ?>
 				<?php else : ?>
-					<?php echo $this->value['lat'] . $strings['sep-lat-lon'] . $this->value['lon']; ?>
-					<a href="//maps.google.com/maps?q=<?php echo esc_attr( $this->value['lat'] ) . ',' . esc_attr( $this->value['lon'] ); ?>" class="sap-view-coords" target="_blank"><?php echo $strings['view']; ?></a>
+					<?php echo $this->value['lat'] . $this->strings['sep-lat-lon'] . $this->value['lon']; ?>
+					<a href="//maps.google.com/maps?q=<?php echo esc_attr( $this->value['lat'] ) . ',' . esc_attr( $this->value['lon'] ); ?>" class="sap-view-coords" target="_blank"><?php echo $this->strings['view']; ?></a>
 				<?php endif; ?>
 				</span>
 			</p>
 			<p class="sap-coords-action-wrapper">
 				<a href="#" class="sap-get-coords">
-					<?php echo $strings['retrieve']; ?>
+					<?php echo $this->strings['retrieve']; ?>
 				</a>
 				<?php _ex( ' | ', 'separator between admin action links in address component', SAP_TEXTDOMAIN ); ?>
 				<a href="#" class="sap-remove-coords">
-					<?php echo $strings['remove']; ?>
+					<?php echo $this->strings['remove']; ?>
 				</a>
 			</p>
 			<input type="hidden" class="lat" name="<?php echo $this->get_input_name(); ?>[lat]" value="<?php echo $this->value['lat']; ?>">

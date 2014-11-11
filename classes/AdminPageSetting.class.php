@@ -73,6 +73,23 @@ abstract class sapAdminPageSetting_2_0_a_7 {
 	);
 
 	/**
+	 * Translateable strings required for this component
+	 *
+	 * Settings classes which require translateable strings should be
+	 * defined with string id's pointing to null values. The actual
+	 * strings should be passed with the $sap->add_setting() call.
+	 * 
+	 * @since 2.0.a.8
+	 */
+	public $strings = array(
+		/**
+		 * Example
+		 *
+		 'string_id' => null
+		 */
+	);
+
+	/**
 	 * Initialize the setting
 	 *
 	 * By default, every setting takes an id, title and description in the $args
@@ -115,7 +132,7 @@ abstract class sapAdminPageSetting_2_0_a_7 {
 	 * Check for missing data when setup.
 	 * @since 1.0
 	 */
-	private function missing_data(  ) {
+	private function missing_data() {
 
 		$error_type = 'missing_data';
 
