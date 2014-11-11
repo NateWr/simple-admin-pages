@@ -153,6 +153,19 @@ abstract class sapAdminPageSetting_2_0_a_7 {
 				)
 			);
 		}
+
+		// Check for strings
+		foreach ( $this->strings as $id => $string ) {
+
+			if ( $string === null ) {
+				$this->set_error(
+					array(
+						'type'		=> $error_type,
+						'data'		=> 'string: ' . $id,
+					)
+				);
+			}
+		}
 	}
 
 	/**

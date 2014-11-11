@@ -55,46 +55,6 @@ class sapAdminPageSettingAddress_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 	);
 
 	/**
-	 * Check for missing data when setup.
-	 * @since 2.0.a.8
-	 */
-	private function missing_data() {
-
-		$error_type = 'missing_data';
-
-		// Required fields
-		if ( empty( $this->id ) ) {
-			$this->set_error(
-				array(
-					'type'		=> $error_type,
-					'data'		=> 'id'
-				)
-			);
-		}
-		if ( empty( $this->title ) ) {
-			$this->set_error(
-				array(
-					'type'		=> $error_type,
-					'data'		=> 'title'
-				)
-			);
-		}
-
-		// Check for strings
-		foreach ( $this->strings as $id => $string ) {
-
-			if ( $string === null ) {
-				$this->set_error(
-					array(
-						'type'		=> $error_type,
-						'data'		=> 'string: ' . $id,
-					)
-				);
-			}
-		}
-	}
-
-	/**
 	 * Escape the value to display it safely HTML textarea fields
 	 * @since 2.0.a.5
 	 */
