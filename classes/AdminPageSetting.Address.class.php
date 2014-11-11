@@ -38,20 +38,20 @@ class sapAdminPageSettingAddress_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 	 * @since 2.0.a.8
 	 */
 	public $strings = array(
-		'sep-action-links'	=> null, // | (Separates action links in address component)
-		'sep-lat-lon'		=> null, // , (Separates latitude and longitude)
-		'no-setting'		=> null, // No map coordinates set.
-		'retrieving'		=> null, // Requesting new coordaintes.
-		'select'			=> null, // Select a match below
-		'view'				=> null, // View
-		'retrieve'			=> null, // Retrieve map coordinates
-		'remove'			=> null, // Remove map coordinates
-		'try_again'			=> null, // Try again?
-		'result_error'		=> null, // Error
-		'result_invalid'	=> null, // Invalid request. Be sure to fill out the address field before retrieving coordinates.
-		'result_denied'		=> null, // Request denied.
-		'result_limit'		=> null, // Request denied because you are over your request quota.
-		'result_empty'		=> null, // Nothing was found at that address.
+		'sep-action-links'	=> null, // _x( ' | ', 'separator between admin action links in address component', 'textdomain' ),
+		'sep-lat-lon'		=> null, // _x( ', ', 'separates latitude and longitude', 'textdomain' ),
+		'no-setting'		=> null, // __( 'No map coordinates set.', 'textdomain' ),
+		'retrieving'		=> null, // __( 'Requesting new coordinates', 'textdomain' ),
+		'select'			=> null, // __( 'Select a match below', 'textdomain' ),
+		'view'				=> null, // __( 'View', 'textdomain' ),
+		'retrieve'			=> null, // __( 'Retrieve map coordinates', 'textdomain' ),
+		'remove'			=> null, // __( 'Remove map coordinates', 'textdomain' ),
+		'try_again'			=> null, // __( 'Try again?', 'textdomain' ),
+		'result_error'		=> null, // __( 'Error', 'textdomain' ),
+		'result_invalid'	=> null, // __( 'Invalid request. Be sure to fill out the address field before retrieving coordinates.', 'textdomain' ),
+		'result_denied'		=> null, // __( 'Request denied.', 'textdomain' ),
+		'result_limit'		=> null, // __( 'Request denied because you are over your request quota.', 'textdomain' ),
+		'result_empty'		=> null, // __( 'Nothing was found at that address', 'textdomain' ),
 	);
 
 	/**
