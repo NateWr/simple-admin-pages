@@ -51,8 +51,8 @@ Here's a simple example of how you can use this library to create an admin page.
 		'options', 				// Admin menu which this page should be added to
 		array(					// Array of key/value pairs matching the AdminPage class constructor variables
 			'id'			=> 'basic-settings',
-			'title'			=> __( 'Page Title', SAP_TEXTDOMAIN ),
-			'menu_title'	=> __( 'menu Title', SAP_TEXTDOMAIN ),
+			'title'			=> __( 'Page Title', 'textdomain' ),
+			'menu_title'	=> __( 'menu Title', 'textdomain' ),
 			'description'	=> '',
 			'capability'	=> 'manage_options' // User permissions access level
 		)
@@ -63,8 +63,8 @@ Here's a simple example of how you can use this library to create an admin page.
 		'basic-settings',		// Page to add this section to
 		array(					// Array of key/value pairs matching the AdminPageSection class constructor variables
 			'id'			=> 'basic-details',
-			'title'			=> __( 'Basic Details', SAP_TEXTDOMAIN ),
-			'description'	=> __( 'This section includes some basic details for you to configure.', SAP_TEXTDOMAIN )
+			'title'			=> __( 'Basic Details', 'textdomain' ),
+			'description'	=> __( 'This section includes some basic details for you to configure.', 'textdomain' )
 		)
 	);
 
@@ -75,12 +75,12 @@ Here's a simple example of how you can use this library to create an admin page.
 		'select',				// Type of setting (see sapLibrary::get_setting_classname()
 		array(
 			'id'			=> 'select-field',
-			'title'			=> __( 'Select Field', SAP_TEXTDOMAIN ),
-			'description'	=> __( 'A demonstration of the select field type.', SAP_TEXTDOMAIN ),
+			'title'			=> __( 'Select Field', 'textdomain' ),
+			'description'	=> __( 'A demonstration of the select field type.', 'textdomain' ),
 			'options'		=> array(
-				'one' 	=> __( 'Option 1', SAP_TEXTDOMAIN ),
-				'two' 	=> __( 'Option 2', SAP_TEXTDOMAIN ),
-				'three' => __( 'Option 3', SAP_TEXTDOMAIN )
+				'one' 	=> __( 'Option 1', 'textdomain' ),
+				'two' 	=> __( 'Option 2', 'textdomain' ),
+				'three' => __( 'Option 3', 'textdomain' )
 			)
 		)
 	);
@@ -187,8 +187,8 @@ $sap->add_page(
 	$type,
 	$args = array(
 		'id'			=> 'my-settings',
-		'title'			=> __( 'Page Title', SAP_TEXTDOMAIN ),
-		'menu_title'	=> __( 'menu Title', SAP_TEXTDOMAIN ),
+		'title'			=> __( 'Page Title', 'textdomain' ),
+		'menu_title'	=> __( 'menu Title', 'textdomain' ),
 		'description'	=> '',
 		'capability'	=> 'manage_options'
 		'default_tab'	=> 'tab-one',
@@ -240,8 +240,8 @@ $sap->add_section(
 	$page_id,
 	$args = array(
 		'id'            => 'basic-details-section',
-		'title'         => __( 'Basic Details', SAP_TEXTDOMAIN ),
-		'description'   => __( 'This section includes some basic details for you to configure.', SAP_TEXTDOMAIN )
+		'title'         => __( 'Basic Details', 'textdomain' ),
+		'description'   => __( 'This section includes some basic details for you to configure.', 'textdomain' )
 	)
 );
 ```
@@ -255,8 +255,8 @@ $sap->add_section(
 	$page_id,
 	$args = array(
 		'id'            => 'tab-one',
-		'title'         => __( 'Tab One', SAP_TEXTDOMAIN ),
-		'description'   => __( 'This tab includes some settings for you to configure.', SAP_TEXTDOMAIN ),
+		'title'         => __( 'Tab One', 'textdomain' ),
+		'description'   => __( 'This tab includes some settings for you to configure.', 'textdomain' ),
 		'is_tab'		=> true,
 	)
 );
@@ -268,8 +268,8 @@ $sap->add_section(
 	$page_id,
 	$args = array(
 		'id'            => 'section-one-under-tab-one',
-		'title'         => __( 'Section One', SAP_TEXTDOMAIN ),
-		'description'   => __( 'This section includes some settings for you to configure.', SAP_TEXTDOMAIN ),
+		'title'         => __( 'Section One', 'textdomain' ),
+		'description'   => __( 'This section includes some settings for you to configure.', 'textdomain' ),
 		'tab'			=> 'tab-one',
 	)
 );
@@ -330,8 +330,8 @@ $sap->add_setting(
 	$type,
 	array(
 		'id'            => 'my-first-setting',
-		'title'         => __( 'My First Setting', SAP_TEXTDOMAIN ),
-		'description'	=> __( 'A demonstration of my first setting', SAP_TEXTDOMAIN );
+		'title'         => __( 'My First Setting', 'textdomain' ),
+		'description'	=> __( 'A demonstration of my first setting', 'textdomain' );
 		...
 	)
 );
