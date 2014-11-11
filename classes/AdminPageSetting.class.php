@@ -88,10 +88,8 @@ abstract class sapAdminPageSetting_2_0_a_7 {
 		// Get any existing value
 		$this->set_value();
 
-		// Set an error if the object is missing necessary data
-		if ( $this->missing_data() ) {
-			$this->set_error();
-		}
+		// Check for missing data
+		$this->missing_data();
 	}
 
 	/**
