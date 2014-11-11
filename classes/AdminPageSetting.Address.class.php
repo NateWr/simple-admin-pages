@@ -168,7 +168,7 @@ class sapAdminPageSettingAddress_2_0_a_7 extends sapAdminPageSetting_2_0_a_7 {
 				<a href="#" class="sap-get-coords">
 					<?php echo $this->strings['retrieve']; ?>
 				</a>
-				<?php _ex( ' | ', 'separator between admin action links in address component', SAP_TEXTDOMAIN ); ?>
+				<?php echo $this->strings['sep-action-links']; ?>
 				<a href="#" class="sap-remove-coords">
 					<?php echo $this->strings['remove']; ?>
 				</a>
