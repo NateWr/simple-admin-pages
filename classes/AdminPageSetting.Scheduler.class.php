@@ -175,6 +175,11 @@ class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
 	public $disable_end_time = false;
 
 	/**
+	 * Boolean to disable multiple rules per component
+	 */
+	public $disable_multiple = false;
+
+	/**
 	 * Escape the value to display it in text fields and other input fields
 	 * @since 2.0
 	 */
@@ -252,6 +257,7 @@ class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
 			'disable_weeks'		=> $this->disable_weeks,
 			'disable_date'		=> $this->disable_date,
 			'disable_time'		=> $this->disable_time,
+			'disable_multiple'	=> $this->disable_multiple,
 			'summaries'			=> $this->schedule_summaries,
 		);
 
@@ -290,7 +296,8 @@ class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
 				}
 			?>
 			</div>
-			<div class="sap-add-scheduler">
+
+			<div class="sap-add-scheduler<?php if ( $this->disable_multiple && count( $this->value ) ) : ?> disabled<?php endif; ?>">
 				<a href="#" class="button">
 					<?php echo $this->strings['add_rule']; ?>
 				</a>
@@ -681,6 +688,11 @@ class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
 			if ( !empty( $rule['time']['end'] ) ) {
 				$output[$i]['time']['end'] = call_user_func( $this->sanitize_callback, $rule['time']['end'] );
 			}
+		}
+
+		// Only return the first rule if multiple rules are disabled
+		if ( $this->disable_multiple && count( $output ) > 1 ) {
+			$output = array( array_shift( $output ) );
 		}
 
 		return $output;
