@@ -156,6 +156,10 @@ class sapAdminPage_2_0_a_8 {
 			return;
 		}
 
+		if ( !current_user_can( $this->capability ) ) {
+			wp_die( __('You do not have sufficient permissions to access this page.') );
+		}
+
 		$current_page = $this->get_current_page( $_GET );
 
 		?>
