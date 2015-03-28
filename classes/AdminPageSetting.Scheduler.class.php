@@ -10,10 +10,10 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
+class sapAdminPageSettingScheduler_2_0_a_9 extends sapAdminPageSetting_2_0_a_9 {
 
 	public $sanitize_callback = 'sanitize_text_field';
-	
+
 	/**
 	 * Scripts that must be loaded for this component
 	 * @since 2.0.a.4
@@ -22,31 +22,31 @@ class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
 		'pickadate' => array(
 			'path'			=> 'lib/pickadate/picker.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '3.5.0',
+			'version'		=> '3.5.5',
 			'footer'		=> true,
 		),
 		'pickadate-date' => array(
 			'path'			=> 'lib/pickadate/picker.date.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '3.5.0',
+			'version'		=> '3.5.5',
 			'footer'		=> true,
 		),
 		'pickadate-time' => array(
 			'path'			=> 'lib/pickadate/picker.time.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '3.5.0',
+			'version'		=> '3.5.5',
 			'footer'		=> true,
 		),
 		'pickadate-legacy' => array(
 			'path'			=> 'lib/pickadate/legacy.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '3.5.0',
+			'version'		=> '3.5.5',
 			'footer'		=> true,
 		),
 		'sap-scheduler' => array(
 			'path'			=> 'js/scheduler.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '2.0.a.8',
+			'version'		=> '2.0.a.9',
 			'footer'		=> true,
 		),
 		// @todo there should be some way to load alternate language .js files
@@ -644,7 +644,7 @@ class sapAdminPageSettingScheduler_2_0_a_8 extends sapAdminPageSetting_2_0_a_8 {
 	public function sanitize_callback_wrapper( $values ) {
 
 		$output = array();
-		
+
 		if ( !is_array( $values ) || !count( $values ) ) {
 			return $output;
 		}

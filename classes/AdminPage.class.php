@@ -7,7 +7,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPage_2_0_a_8 {
+class sapAdminPage_2_0_a_9 {
 
 	public $title;
 	public $menu_title;
