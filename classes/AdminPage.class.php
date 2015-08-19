@@ -182,7 +182,7 @@ class sapAdminPage_2_0_a_9 {
 				<?php $this->display_page_title(); ?>
 
 				<?php if ( isset( $this->default_tab ) ) : ?>
-				<h1 class="nav-tab-wrapper">
+				<h2 class="nav-tab-wrapper">
 				<?php
 				foreach( $this->sections as $section ) {
 
@@ -202,7 +202,7 @@ class sapAdminPage_2_0_a_9 {
 					}
 				}
 				?>
-				</h1>
+				</h2>
 				<?php endif; ?>
 
 				<form method="post" action="options.php">
