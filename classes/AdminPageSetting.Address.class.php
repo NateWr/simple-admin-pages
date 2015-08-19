@@ -7,7 +7,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingAddress_2_0_a_9 extends sapAdminPageSetting_2_0_a_9 {
+class sapAdminPageSettingAddress_2_0_a_10 extends sapAdminPageSetting_2_0_a_10 {
 
 	/*
 	 * Size of this textarea
