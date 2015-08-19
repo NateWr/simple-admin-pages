@@ -225,7 +225,7 @@ class sapAdminPage_2_0_a_9 {
 			return;
 		}
 		?>
-			<h2><?php echo $this->title; ?></h2>
+			<h1><?php echo $this->title; ?></h1>
 		<?php
 	}
 
