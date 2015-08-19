@@ -68,7 +68,7 @@ class sapAdminPageSection_2_0_a_9 {
 			return;
 		}
 
-		if ( $setting->has_position() ) {
+		if ( method_exists( $setting, 'has_position' ) && $setting->has_position() ) {
 
 			// Top
 			if ( $setting->position[0] == 'top' ) {
