@@ -1,5 +1,5 @@
 {
-  "name": "NateWr/simple-admin-pages",
+  "name": "timiwahalahti/simple-admin-pages/simple-admin-pages",
   "type": "library",
   "license": "GNU GPL 2 or later",
   "description": "Simple Admin Pages is a very small utility library to easily add new admin pages to the WordPress admin interface.",
