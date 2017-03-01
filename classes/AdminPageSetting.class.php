@@ -9,6 +9,7 @@
  *		'id'			=> 'setting_id', 	// Unique id
  *		'title'			=> 'My Setting', 	// Title or label for the setting
  *		'description'	=> 'Description' 	// Help text description
+ * 		'args'			=> array();			// Arguments to pass to WordPress's add_settings_field() function
  * );
  *
  * @since 1.0
@@ -22,7 +23,13 @@ abstract class sapAdminPageSetting_2_0 {
 	public $title; // setting label
 	public $description; // optional description of the setting
 	public $value; // value of the setting, if a value exists
-
+	
+	/**
+	 * An array of arguments accepted by add_settings_field.
+	 * See: https://codex.wordpress.org/Function_Reference/add_settings_field
+	 */
+	public $args = array();
+	
 	// Array to store errors
 	public $errors = array();
 
@@ -274,7 +281,8 @@ abstract class sapAdminPageSetting_2_0 {
 			$this->title,
 			array( $this, 'display_setting' ),
 			$this->tab,
-			$section_id
+			$section_id,
+			$this->args
 		);
 
 	}
