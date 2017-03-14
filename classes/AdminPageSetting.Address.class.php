@@ -7,7 +7,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingAddress_2_0 extends sapAdminPageSetting_2_0 {
+class sapAdminPageSettingAddress_2_0_1 extends sapAdminPageSetting_2_0_1 {
 
 	/*
 	 * Size of this textarea
@@ -108,7 +108,7 @@ class sapAdminPageSettingAddress_2_0 extends sapAdminPageSetting_2_0 {
 		);
 
 		$this->display_description();
-	
+
 		?>
 
 		<div class="sap-address" id="<?php echo $this->id; ?>">
