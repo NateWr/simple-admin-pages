@@ -18,6 +18,17 @@ class sapAdminPageSettingAddress_2_1_0 extends sapAdminPageSetting_2_1_0 {
 	 */
 	public $size = 'small';
 
+	/*
+	 * A Google Maps API key for geolocating addresses
+	 */
+	public $api_key = '';
+
+	/*
+	 * A jQuery selector pointing to the input element where the Google Maps API
+	 * key can be retrieved.
+	 */
+	public $api_key_selector = '';
+
 	/**
 	 * Scripts that must be loaded for this component
 	 * @since 2.0.a.5
@@ -104,6 +115,8 @@ class sapAdminPageSettingAddress_2_1_0 extends sapAdminPageSetting_2_1_0 {
 			'sap_address',
 			array(
 				'strings' => $this->strings,
+				'api_key' => $this->api_key,
+				'api_key_selector' => $this->api_key_selector,
 			)
 		);
 
