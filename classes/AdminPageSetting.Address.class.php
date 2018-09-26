@@ -7,7 +7,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingAddress_2_1_0 extends sapAdminPageSetting_2_1_0 {
+class sapAdminPageSettingAddress_2_1_1 extends sapAdminPageSetting_2_1_1 {
 
 	/*
 	 * Size of this textarea
@@ -37,7 +37,7 @@ class sapAdminPageSettingAddress_2_1_0 extends sapAdminPageSetting_2_1_0 {
 		'sap-address' => array(
 			'path'			=> 'js/address.js',
 			'dependencies'	=> array( 'jquery' ),
-			'version'		=> '2.0.a.5',
+			'version'		=> '2.1.1',
 			'footer'		=> true,
 		),
 	);
