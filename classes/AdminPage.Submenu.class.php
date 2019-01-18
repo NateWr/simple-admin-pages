@@ -8,7 +8,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSubmenu_2_1_1 extends sapAdminPage_2_1_1 {
+class sapAdminPageSubmenu_2_1_2 extends sapAdminPage_2_1_2 {
 	
 	public $setup_function = 'add_submenu_page'; // WP function to register the page
 	
