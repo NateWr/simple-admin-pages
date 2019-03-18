@@ -16,7 +16,7 @@
  * @package Simple Admin Pages
  */
 
-abstract class sapAdminPageSetting_2_1_1 {
+abstract class sapAdminPageSetting_2_1_2 {
 
 	// Page defaults
 	public $id; // used in form fields and database to track and store setting

@@ -17,7 +17,7 @@
  * @package Simple Admin Pages
  */
 
-class sapAdminPageSettingToggle_2_1_1 extends sapAdminPageSetting_2_1_1 {
+class sapAdminPageSettingToggle_2_1_2 extends sapAdminPageSetting_2_1_2 {
 
 	public $sanitize_callback = 'sanitize_text_field';
 
@@ -26,7 +26,7 @@ class sapAdminPageSettingToggle_2_1_1 extends sapAdminPageSetting_2_1_1 {
 	 * @since 1.0
 	 */
 	public function display_setting() {
-	
+
 		$input_name = $this->get_input_name();
 
 		?>

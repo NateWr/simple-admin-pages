@@ -39,7 +39,7 @@ Here's an example of how you can use this library to create an admin page.
 	require_once( 'path/to/simple-admin-pages/simple-admin-pages.php' );
 	$sap = sap_initialize_library(
 		array(
-			'version'		=> '2.1.1', // Version of the library
+			'version'		=> '2.1.2', // Version of the library
 			'lib_url'		=> PLUGIN_URL . '/lib/simple-admin-pages/', // URL path to sap library
 		)
 	);
@@ -128,7 +128,7 @@ The lib_url is used to print stylesheets or scripts attached to the library.
 require_once( 'path/to/simple-admin-pages/simple-admin-pages.php' );
 $sap = sap_initialize_library(
 	$args = array(
-		'version'		=> '2.1.1', // Version of the library
+		'version'		=> '2.1.2', // Version of the library
 		'lib_url'		=> PLUGIN_URL . '/lib/simple-admin-pages/', // URL path to sap library
 	)
 );
@@ -368,6 +368,10 @@ $all_page_settings[ $my_setting_id ];
 ```
 
 ## Changelog
+
+- 2.1.2 - 2019-03-18
+	- Update pickadate.js to 3.6.1 to fix regression in Chromium
+		https://github.com/amsul/pickadate.js/issues/1138
 
 - 2.1.1 - 2018-09-26
 	- Allow address geolookup field to receive a Google Maps API key
