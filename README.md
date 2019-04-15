@@ -30,6 +30,18 @@ Settings API into reuseable classes and implements a set of simple controls.
 - Google Map Address (with GeoLocation)
 - Business Opening Hours
 
+## Installing with Composer
+
+You can install this library using Composer, by adding following lines to repositories;
+```
+{
+	 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
+	 "type": "git"
+}
+```
+
+and adding `"NateWr/simple-admin-pages":"dev-master"` to require.
+
 ## Usage
 
 Here's an example of how you can use this library to create an admin page.
